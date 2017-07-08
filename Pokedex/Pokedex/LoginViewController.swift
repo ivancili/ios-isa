@@ -34,7 +34,7 @@ class LoginViewController: UIViewController {
             return print("Incorrect input")
         }
         
-        print(user + ", " + pass)
+        print("USERNAME: " + user + "\t" + "PASSWORD: " + pass)
         
     }
     
