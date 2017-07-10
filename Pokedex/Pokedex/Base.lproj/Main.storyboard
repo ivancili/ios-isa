@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="zIF-wG-oy8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.19" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zIF-wG-oy8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.16"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,16 +14,12 @@
         <scene sceneID="LHz-45-KAb">
             <objects>
                 <viewController id="zIF-wG-oy8" customClass="LoginViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="5tV-nk-hfG"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gen-bR-wUe"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Nyw-aI-aEU">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-id-0SZ">
-                                <rect key="frame" x="16" y="258" width="343" height="150"/>
+                                <rect key="frame" x="16" y="258.5" width="343" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-Tn-DFV">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="150"/>
@@ -76,6 +73,7 @@
                             <constraint firstItem="lQQ-id-0SZ" firstAttribute="centerY" secondItem="Nyw-aI-aEU" secondAttribute="centerY" id="JTN-YY-XYQ"/>
                             <constraint firstItem="lQQ-id-0SZ" firstAttribute="trailing" secondItem="Nyw-aI-aEU" secondAttribute="trailingMargin" id="tZQ-7k-jnL"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="ZWk-AL-Gj0"/>
                     </view>
                     <connections>
                         <outlet property="password" destination="Aoa-Z1-PTr" id="bfM-Pz-FDC"/>
