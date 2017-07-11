@@ -21,21 +21,27 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Wx-OR-LdS" userLabel="SubView">
-                                <rect key="frame" x="17.5" y="158.5" width="340" height="350"/>
+                                <rect key="frame" x="27.5" y="173.5" width="320" height="320"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokedex-logo-big" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXF-kn-qtS">
-                                        <rect key="frame" x="6" y="17" width="329" height="167"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokeball" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zg-f3-MSl">
+                                        <rect key="frame" x="84.5" y="120" width="151" height="151"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="pokeball" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9zg-f3-MSl">
-                                        <rect key="frame" x="81" y="163" width="178" height="158"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokedex-logo-big" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QXF-kn-qtS">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="9yv-EZ-Hf9"/>
+                                        </constraints>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="350" id="JcJ-x3-E06"/>
-                                    <constraint firstAttribute="width" constant="340" id="p6k-tZ-BON"/>
+                                    <constraint firstItem="QXF-kn-qtS" firstAttribute="top" secondItem="1Wx-OR-LdS" secondAttribute="top" id="Bhk-gV-ALA"/>
+                                    <constraint firstAttribute="height" constant="320" id="JcJ-x3-E06"/>
+                                    <constraint firstItem="9zg-f3-MSl" firstAttribute="centerX" secondItem="QXF-kn-qtS" secondAttribute="centerX" id="MDB-8c-ayf"/>
+                                    <constraint firstAttribute="trailing" secondItem="QXF-kn-qtS" secondAttribute="trailing" id="Nfk-6k-0qm"/>
+                                    <constraint firstItem="9zg-f3-MSl" firstAttribute="top" secondItem="QXF-kn-qtS" secondAttribute="bottom" constant="-30" id="jhp-wm-WqQ"/>
+                                    <constraint firstItem="QXF-kn-qtS" firstAttribute="leading" secondItem="1Wx-OR-LdS" secondAttribute="leading" id="kXu-dd-SDF"/>
+                                    <constraint firstAttribute="width" constant="320" id="p6k-tZ-BON"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -48,7 +54,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="50.399999999999999" y="372.86356821589209"/>
+            <point key="canvasLocation" x="47.826086956521742" y="371.73913043478262"/>
         </scene>
     </scenes>
     <resources>
