@@ -8,20 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */; };
-		5C69C7FB1F10EC8100B470E6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C7FA1F10EC8100B470E6 /* ViewController.swift */; };
 		5C69C7FE1F10EC8200B470E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C7FC1F10EC8200B470E6 /* Main.storyboard */; };
 		5C69C8001F10EC8200B470E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C7FF1F10EC8200B470E6 /* Assets.xcassets */; };
 		5C69C8031F10EC8200B470E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C8011F10EC8200B470E6 /* LaunchScreen.storyboard */; };
+		5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C80A1F10F10200B470E6 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C69C7F51F10EC8100B470E6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5C69C7FA1F10EC8100B470E6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5C69C7FD1F10EC8200B470E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5C69C7FF1F10EC8200B470E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5C69C8021F10EC8200B470E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C69C8041F10EC8200B470E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5C69C80A1F10F10200B470E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +55,11 @@
 			isa = PBXGroup;
 			children = (
 				5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */,
-				5C69C7FA1F10EC8100B470E6 /* ViewController.swift */,
 				5C69C7FC1F10EC8200B470E6 /* Main.storyboard */,
 				5C69C7FF1F10EC8200B470E6 /* Assets.xcassets */,
 				5C69C8011F10EC8200B470E6 /* LaunchScreen.storyboard */,
 				5C69C8041F10EC8200B470E6 /* Info.plist */,
+				5C69C80A1F10F10200B470E6 /* LoginViewController.swift */,
 			);
 			path = Pokedex;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C69C7FB1F10EC8100B470E6 /* ViewController.swift in Sources */,
+				5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */,
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -310,6 +310,7 @@
 				5C69C8091F10EC8200B470E6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
