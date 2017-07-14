@@ -7,45 +7,75 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var username: UITextField!
     @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        NotificationCenter
+            .default
+            .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { notification in
+        }
+        
+        NotificationCenter
+            .default
+            .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { notification in
+                // keyboard is about to hide, handle UIScrollView contentInset, e.g.
+                // scrollView.contentInset = UIEdgeInsetsMake(CGFloat, CGFloat, CGFloat, CGFloat)
+        }
+        
     }
     
     @IBAction func loginButtonTouched(_ sender: Any) {
+        
+        /*
+         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+         MBProgressHUD.showAdded(to: self.view, animated: true)
+         }
+         
+         DispatchQueue.main.asyncAfter(deadline: .now() + 3 + 3) {
+         MBProgressHUD.hide(for: self.view, animated: true)
+         }
+         
+         */
         
         guard
             let user = username.text,
             let pass = password.text,
             !user.isEmpty,
             !pass.isEmpty
-        else {
-            return print("Incorrect input")
+            else {
+                return print("Incorrect input")
         }
-        
         print("USERNAME: " + user + "\t" + "PASSWORD: " + pass)
+        
         
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func signUpButtonTouched(_ sender: Any) {
+        
+        let bundle = Bundle.main
+        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+        let registerViewController = storyboard.instantiateViewController(
+            withIdentifier: "RegisterViewController"
+        )
+        
+        navigationController?.pushViewController(registerViewController, animated: true)
+        
+        
     }
-    */
-
 }
