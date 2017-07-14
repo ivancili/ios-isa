@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13156.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zIF-wG-oy8">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,23 +14,23 @@
             <objects>
                 <viewController id="zIF-wG-oy8" customClass="LoginViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nyw-aI-aEU">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5pe-Tz-7tv">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-id-0SZ" userLabel="SubView">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="647"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-Tn-DFV">
-                                                <rect key="frame" x="0.0" y="50" width="375" height="597"/>
+                                                <rect key="frame" x="0.0" y="50" width="414" height="597"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id4-y6-oeW" userLabel="Image">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokedex-grouped" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ri4-ZF-M7l">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="347"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
                                                             </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,10 +42,10 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T59-Vq-KD4" userLabel="TextFields">
-                                                        <rect key="frame" x="0.0" y="387" width="375" height="90"/>
+                                                        <rect key="frame" x="0.0" y="387" width="414" height="90"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Rk-Pf-yMO" userLabel="EmailField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GaN-zR-5rc" userLabel="Icon">
                                                                         <rect key="frame" x="20" y="0.0" width="24" height="40"/>
@@ -63,13 +63,13 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBT-5K-Slu" userLabel="Email">
-                                                                        <rect key="frame" x="64" y="0.0" width="291" height="40"/>
+                                                                        <rect key="frame" x="64" y="0.0" width="330" height="40"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbR-nG-Jbo">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="291" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="330" height="40"/>
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                <textInputTraits key="textInputTraits" textContentType="email"/>
+                                                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                                             </textField>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -94,7 +94,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKg-yB-ajq" userLabel="PasswordField">
-                                                                <rect key="frame" x="0.0" y="50" width="375" height="40"/>
+                                                                <rect key="frame" x="0.0" y="50" width="414" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lx9-Lf-a9H" userLabel="Icon">
                                                                         <rect key="frame" x="20" y="0.0" width="24" height="40"/>
@@ -112,10 +112,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mud-ZJ-JR3" userLabel="Password">
-                                                                        <rect key="frame" x="64" y="0.0" width="247" height="40"/>
+                                                                        <rect key="frame" x="64" y="0.0" width="286" height="40"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnb-CM-Lxc">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="247" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="40"/>
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                                 <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
@@ -130,7 +130,7 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-Ek-Zq5" userLabel="Icon">
-                                                                        <rect key="frame" x="331" y="0.0" width="24" height="40"/>
+                                                                        <rect key="frame" x="370" y="0.0" width="24" height="40"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-visibility" translatesAutoresizingMaskIntoConstraints="NO" id="uPA-Eh-Hsl">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
@@ -163,10 +163,10 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BAs-lC-cVH" userLabel="Buttons">
-                                                        <rect key="frame" x="0.0" y="517" width="375" height="80"/>
+                                                        <rect key="frame" x="0.0" y="517" width="414" height="80"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QR-QC-sID">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
                                                                 <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="y19-9M-4O8"/>
@@ -180,7 +180,7 @@
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S5K-57-fIV">
-                                                                <rect key="frame" x="0.0" y="40" width="375" height="40"/>
+                                                                <rect key="frame" x="0.0" y="40" width="414" height="40"/>
                                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="9GM-lV-nw2"/>
@@ -212,7 +212,6 @@
                                     <constraint firstItem="lQQ-id-0SZ" firstAttribute="width" secondItem="5pe-Tz-7tv" secondAttribute="width" id="Qas-Nz-9N1"/>
                                     <constraint firstItem="lQQ-id-0SZ" firstAttribute="top" secondItem="5pe-Tz-7tv" secondAttribute="top" id="UqS-sb-n14"/>
                                     <constraint firstItem="lQQ-id-0SZ" firstAttribute="leading" secondItem="5pe-Tz-7tv" secondAttribute="leading" id="WvB-eg-tBs"/>
-                                    <constraint firstItem="lQQ-id-0SZ" firstAttribute="height" secondItem="5pe-Tz-7tv" secondAttribute="height" id="aFe-G6-EAK"/>
                                     <constraint firstAttribute="trailing" secondItem="lQQ-id-0SZ" secondAttribute="trailing" id="bOG-fF-36c"/>
                                 </constraints>
                             </scrollView>
