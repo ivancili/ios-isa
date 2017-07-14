@@ -41,6 +41,9 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginButtonTouched(_ sender: Any) {
         
+        // Alamofire request
+        // If success -> navigation to Home
+        
         /*
          
          DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
@@ -63,7 +66,6 @@ class LoginViewController: UIViewController {
         }
         print("USERNAME: " + user + "\t" + "PASSWORD: " + pass)
         
-        
     }
     
     @IBAction func signUpButtonTouched(_ sender: Any) {
@@ -75,7 +77,6 @@ class LoginViewController: UIViewController {
         )
         
         navigationController?.pushViewController(registerViewController, animated: true)
-        
         
     }
 }
