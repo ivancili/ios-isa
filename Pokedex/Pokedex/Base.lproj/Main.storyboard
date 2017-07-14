@@ -186,7 +186,7 @@
                                                                     <constraint firstAttribute="height" constant="40" id="9GM-lV-nw2"/>
                                                                 </constraints>
                                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="20"/>
-                                                                <state key="normal" title="Sing up">
+                                                                <state key="normal" title="Sign up">
                                                                     <color key="titleColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                 </state>
                                                                 <connections>
