@@ -8,5 +8,6 @@ target 'Pokedex' do
   # Pods for Pokedex
   pod ‘Alamofire’
   pod ‘MBProgressHUD’
-
+  pod 'CodableAlamofire', :git => 'https://github.com/Otbivnoe/CodableAlamofire.git'
+  
 end
