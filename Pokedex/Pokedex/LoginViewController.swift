@@ -46,17 +46,7 @@ class LoginViewController: UIViewController {
         // Alamofire request
         // If success -> navigation to Home
         
-        /*
-         
-         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-         MBProgressHUD.showAdded(to: self.view, animated: true)
-         }
-         
-         DispatchQueue.main.asyncAfter(deadline: .now() + 3 + 3) {
-         MBProgressHUD.hide(for: self.view, animated: true)
-         }
-         
-         */
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         guard
             let email = email.text,
@@ -87,14 +77,19 @@ class LoginViewController: UIViewController {
                 
                 switch response.result {
                 case .success:
+                    
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     let bundle = Bundle.main
                     let storyboard = UIStoryboard(name: "Main", bundle: bundle)
                     let homeViewController = storyboard.instantiateViewController(
                         withIdentifier: "HomeViewController"
                     )
                     self.navigationController?.setViewControllers([homeViewController], animated: true)
+                    
                 case .failure(let error):
+                    
                     print("FAILURE: \(error.localizedDescription)")
+                    
                 }
                 
         }

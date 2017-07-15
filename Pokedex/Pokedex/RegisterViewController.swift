@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import MBProgressHUD
 import CodableAlamofire
 
 class RegisterViewController: UIViewController {
@@ -29,6 +30,8 @@ class RegisterViewController: UIViewController {
         
         // Alamofire request
         // If success -> navigation to Home
+        
+        MBProgressHUD.showAdded(to: self.view, animated: true)
         
         guard
             let email = emailTextField.text,
@@ -67,6 +70,7 @@ class RegisterViewController: UIViewController {
                 switch response.result {
                 case .success:
                     
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     let bundle = Bundle.main
                     let storyboard = UIStoryboard(name: "Main", bundle: bundle)
                     let homeViewController = storyboard.instantiateViewController(
