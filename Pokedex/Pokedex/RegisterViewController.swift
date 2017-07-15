@@ -78,7 +78,7 @@ class RegisterViewController: UIViewController {
                     
                     if let data = response.data {
                         let json = String(data: data, encoding: String.Encoding.utf8)
-                        print("FAILURE: \(json!)")
+                        print("FAILURE: \(String(describing: json))")
                     }
                     
                 }
