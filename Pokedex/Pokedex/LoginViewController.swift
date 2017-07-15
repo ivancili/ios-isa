@@ -8,10 +8,12 @@
 
 import UIKit
 import MBProgressHUD
+import CodableAlamofire
+import Alamofire
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var username: UITextField!
+    @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -57,14 +59,45 @@ class LoginViewController: UIViewController {
          */
         
         guard
-            let user = username.text,
-            let pass = password.text,
-            !user.isEmpty,
-            !pass.isEmpty
+            let email = email.text,
+            let password = password.text,
+            !email.isEmpty,
+            !password.isEmpty
             else {
-                return print("Incorrect input")
+                return print("Email and password are required.")
         }
-        print("USERNAME: " + user + "\t" + "PASSWORD: " + pass)
+        
+        let params = [
+            "data": [
+                "type": "session",
+                "attributes": [
+                    "email": String(email),
+                    "password": String(password)
+                ]
+            ]
+        ]
+        
+        Alamofire
+            .request(
+                "https://pokeapi.infinum.co/api/v1/users/login",
+                method: .post,
+                parameters: params)
+            .validate()
+            .responseDecodableObject { (response: DataResponse<User>) in
+                
+                switch response.result {
+                case .success:
+                    let bundle = Bundle.main
+                    let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+                    let homeViewController = storyboard.instantiateViewController(
+                        withIdentifier: "HomeViewController"
+                    )
+                    self.navigationController?.setViewControllers([homeViewController], animated: true)
+                case .failure(let error):
+                    print("FAILURE: \(error.localizedDescription)")
+                }
+                
+        }
         
     }
     
@@ -80,3 +113,4 @@ class LoginViewController: UIViewController {
         
     }
 }
+

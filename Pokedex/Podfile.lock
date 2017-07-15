@@ -5,7 +5,7 @@ PODS:
   - MBProgressHUD (1.0.0)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (~> 4.4)
   - CodableAlamofire (from `https://github.com/Otbivnoe/CodableAlamofire.git`)
   - MBProgressHUD
 
@@ -23,6 +23,6 @@ SPEC CHECKSUMS:
   CodableAlamofire: 14c935ed3fbc51f703da97603147eda24dbe1d49
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
 
-PODFILE CHECKSUM: 143efadd7080f7b8ffa875f3b9b6088ad96f5584
+PODFILE CHECKSUM: e55110592cfe5a2d6a582d93f501db06c2b20f93
 
 COCOAPODS: 1.1.1

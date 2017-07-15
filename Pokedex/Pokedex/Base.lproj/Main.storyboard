@@ -227,9 +227,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="JAn-KQ-MRu"/>
                     <connections>
-                        <outlet property="password" destination="vnb-CM-Lxc" id="oC7-uY-a5f"/>
+                        <outlet property="email" destination="nbR-nG-Jbo" id="OY1-6l-Qo2"/>
+                        <outlet property="password" destination="vnb-CM-Lxc" id="ct8-UI-zyj"/>
                         <outlet property="scrollView" destination="5pe-Tz-7tv" id="QP5-QS-S5N"/>
-                        <outlet property="username" destination="nbR-nG-Jbo" id="ZHq-ZR-rr4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4Y-JK-nBa" userLabel="First Responder" sceneMemberID="firstResponder"/>

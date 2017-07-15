@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import CodableAlamofire
 
 class RegisterViewController: UIViewController {
     
@@ -24,8 +26,63 @@ class RegisterViewController: UIViewController {
     }
     
     @IBAction func signupButtonTouched(_ sender: Any) {
+        
         // Alamofire request
         // If success -> navigation to Home
+        
+        guard
+            let email = emailTextField.text,
+            let nickname = nicknameTextField.text,
+            let password = passwordTextField.text,
+            let passwordConfirmation = confirmPasswordTextField.text,
+            !email.isEmpty,
+            !nickname.isEmpty,
+            !password.isEmpty,
+            !passwordConfirmation.isEmpty
+            else {
+                return print("All data must be provided. Passwords must match.")
+        }
+        
+        
+        let params = [
+            "data": [
+                "type" : "users",
+                "attributes" : [
+                    "username" : String(nickname),
+                    "email" : String(email),
+                    "password" : String(password),
+                    "password_confirmation" : String(passwordConfirmation)
+                ]
+            ]
+        ]
+        
+        Alamofire
+            .request(
+                "https://pokeapi.infinum.co/api/v1/users",
+                method: .post,
+                parameters: params)
+            .validate()
+            .responseDecodableObject { (response: DataResponse<User>) in
+                
+                switch response.result {
+                case .success:
+                    
+                    let bundle = Bundle.main
+                    let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+                    let homeViewController = storyboard.instantiateViewController(
+                        withIdentifier: "HomeViewController"
+                    )
+                    self.navigationController?.setViewControllers([homeViewController], animated: true)
+                    
+                case .failure(let error):
+                    
+                    print("FAILURE: \(error.localizedDescription)")
+                    
+                }
+                
+        }
+        
+        
     }
     
 }
