@@ -43,7 +43,7 @@ class RegisterViewController: UIViewController {
             !password.isEmpty,
             !passwordConfirmation.isEmpty
             else {
-                return print("All data must be provided. Passwords must match.")
+                return print("All data must be provided.")
         }
         
         

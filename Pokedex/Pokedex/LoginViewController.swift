@@ -86,9 +86,12 @@ class LoginViewController: UIViewController {
                     )
                     self.navigationController?.setViewControllers([homeViewController], animated: true)
                     
-                case .failure(let error):
+                case .failure:
                     
-                    print("FAILURE: \(error.localizedDescription)")
+                    if let data = response.data {
+                        let json = String(data: data, encoding: String.Encoding.utf8)
+                        print("FAILURE: \(String(describing: json))")
+                    }
                     
                 }
                 
