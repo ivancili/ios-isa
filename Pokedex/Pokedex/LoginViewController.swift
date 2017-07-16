@@ -30,15 +30,27 @@ class LoginViewController: UIViewController {
         NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { notification in
+                // keyboard is about to show
+                guard
+                    let userInfo = notification.userInfo,
+                    let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+                        return
+                }
+                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+                self.scrollView.contentInset = contentInset
         }
         
         NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { notification in
-                // keyboard is about to hide, handle UIScrollView contentInset, e.g.
-                // scrollView.contentInset = UIEdgeInsetsMake(CGFloat, CGFloat, CGFloat, CGFloat)
+                // keyboard is about to hide
+                self.scrollView.contentInset = UIEdgeInsets.zero
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     @IBAction func loginButtonTouched(_ sender: Any) {
