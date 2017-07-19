@@ -29,10 +29,11 @@ class RegisterViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         NotificationCenter
             .default
-            .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { notification in
+            .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to show
                 guard
                     let userInfo = notification.userInfo,
@@ -40,22 +41,21 @@ class RegisterViewController: UIViewController {
                         return
                 }
                 let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-                self.scrollView.contentInset = contentInset
+                self?.scrollView.contentInset = contentInset
         }
         
         NotificationCenter
             .default
-            .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { notification in
+            .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to hide
-                self.scrollView.contentInset = UIEdgeInsets.zero
+                self?.scrollView.contentInset = UIEdgeInsets.zero
         }
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    deinit {
         NotificationCenter.default.removeObserver(self)
     }
-    
     
     @IBAction func signupButtonTouched(_ sender: Any) {
         
@@ -74,6 +74,7 @@ class RegisterViewController: UIViewController {
             !password.isEmpty,
             !passwordConfirmation.isEmpty
             else {
+                MBProgressHUD.hide(for: self.view, animated: true)
                 return print("All data must be provided.")
         }
         
@@ -82,10 +83,10 @@ class RegisterViewController: UIViewController {
             "data": [
                 "type" : "users",
                 "attributes" : [
-                    "username" : String(nickname),
-                    "email" : String(email),
-                    "password" : String(password),
-                    "password_confirmation" : String(passwordConfirmation)
+                    "username" : nickname,
+                    "email" : email,
+                    "password" : password,
+                    "password_confirmation" : passwordConfirmation
                 ]
             ]
         ]
@@ -102,19 +103,19 @@ class RegisterViewController: UIViewController {
                 case .success:
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
-                    let bundle = Bundle.main
-                    let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-                    let homeViewController = storyboard.instantiateViewController(
-                        withIdentifier: "HomeViewController"
-                    )
-                    self.navigationController?.setViewControllers([homeViewController], animated: true)
+                    HomeViewController.switchToHomeScreen(self.navigationController)
                     
                 case .failure:
                     
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     if let data = response.data {
                         let json = String(data: data, encoding: String.Encoding.utf8)
                         print("FAILURE: \(String(describing: json))")
                     }
+                    self.emailTextField.text = ""
+                    self.nicknameTextField.text = ""
+                    self.passwordTextField.text = ""
+                    self.confirmPasswordTextField.text = ""
                     
                 }
                 

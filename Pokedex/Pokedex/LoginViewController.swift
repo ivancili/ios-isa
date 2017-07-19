@@ -13,8 +13,8 @@ import Alamofire
 
 class LoginViewController: UIViewController {
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
@@ -27,10 +27,11 @@ class LoginViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
         NotificationCenter
             .default
-            .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { notification in
+            .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to show
                 guard
                     let userInfo = notification.userInfo,
@@ -38,21 +39,24 @@ class LoginViewController: UIViewController {
                         return
                 }
                 let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-                self.scrollView.contentInset = contentInset
+                self?.scrollView.contentInset = contentInset
+                
         }
         
         NotificationCenter
             .default
-            .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { notification in
+            .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to hide
-                self.scrollView.contentInset = UIEdgeInsets.zero
+                self?.scrollView.contentInset = UIEdgeInsets.zero
+                
         }
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    deinit {
         NotificationCenter.default.removeObserver(self)
     }
+    
     
     @IBAction func loginButtonTouched(_ sender: Any) {
         
@@ -62,11 +66,12 @@ class LoginViewController: UIViewController {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         guard
-            let email = email.text,
-            let password = password.text,
+            let email = emailTextField.text,
+            let password = passwordTextField.text,
             !email.isEmpty,
             !password.isEmpty
             else {
+                MBProgressHUD.hide(for: self.view, animated: true)
                 return print("Email and password are required.")
         }
         
@@ -74,8 +79,8 @@ class LoginViewController: UIViewController {
             "data": [
                 "type": "session",
                 "attributes": [
-                    "email": String(email),
-                    "password": String(password)
+                    "email": email,
+                    "password": password
                 ]
             ]
         ]
@@ -92,19 +97,17 @@ class LoginViewController: UIViewController {
                 case .success:
                     
                     MBProgressHUD.hide(for: self.view, animated: true)
-                    let bundle = Bundle.main
-                    let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-                    let homeViewController = storyboard.instantiateViewController(
-                        withIdentifier: "HomeViewController"
-                    )
-                    self.navigationController?.setViewControllers([homeViewController], animated: true)
+                    HomeViewController.switchToHomeScreen(self.navigationController)
                     
                 case .failure:
                     
+                    MBProgressHUD.hide(for: self.view, animated: true)
                     if let data = response.data {
                         let json = String(data: data, encoding: String.Encoding.utf8)
                         print("FAILURE: \(String(describing: json))")
                     }
+                    self.emailTextField.text = ""
+                    self.passwordTextField.text = ""
                     
                 }
                 
@@ -125,15 +128,4 @@ class LoginViewController: UIViewController {
     }
 }
 
-extension UIViewController {
-    
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-}
+

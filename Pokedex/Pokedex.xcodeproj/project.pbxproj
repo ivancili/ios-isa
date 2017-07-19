@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28412749A723AD3B4C723B67 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E35E107540EA4629952A984 /* Pods_Pokedex.framework */; };
+		5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */; };
 		5C4AFE041F1A81EF00F5C4EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4AFE031F1A81EF00F5C4EA /* User.swift */; };
 		5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */; };
 		5C69C7FE1F10EC8200B470E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C7FC1F10EC8200B470E6 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		1850639E23D89CC574E8A41C /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
+		5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardHandling+UIViewController.swift"; sourceTree = "<group>"; };
 		5C4AFE031F1A81EF00F5C4EA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5C69C7F51F10EC8100B470E6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -54,9 +56,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C1D6E931F1FFDDB002325CF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		5C69C7EC1F10EC8100B470E6 = {
 			isa = PBXGroup;
 			children = (
+				5C1D6E931F1FFDDB002325CF /* Extensions */,
 				5C69C7F71F10EC8100B470E6 /* Pokedex */,
 				5C69C7F61F10EC8100B470E6 /* Products */,
 				ED9580B211455FD0BD097DF9 /* Pods */,
@@ -229,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */,
 				5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */,
 				5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */,
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
