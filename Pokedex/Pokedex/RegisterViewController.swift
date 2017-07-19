@@ -1,20 +1,22 @@
 //
-//  LoginViewController.swift
+//  RegisterViewController.swift
 //  Pokedex
 //
-//  Created by Infinum Student Academy on 08/07/2017.
+//  Created by Infinum Student Academy on 14/07/2017.
 //  Copyright © 2017 Ivan Ilic. All rights reserved.
 //
 
 import UIKit
+import Alamofire
 import MBProgressHUD
 import CodableAlamofire
-import Alamofire
 
-class LoginViewController: UIViewController {
+class RegisterViewController: UIViewController {
     
-    @IBOutlet weak var email: UITextField!
-    @IBOutlet weak var password: UITextField!
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var nicknameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
@@ -54,7 +56,8 @@ class LoginViewController: UIViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @IBAction func loginButtonTouched(_ sender: Any) {
+    
+    @IBAction func signupButtonTouched(_ sender: Any) {
         
         // Alamofire request
         // If success -> navigation to Home
@@ -62,27 +65,34 @@ class LoginViewController: UIViewController {
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         guard
-            let email = email.text,
-            let password = password.text,
+            let email = emailTextField.text,
+            let nickname = nicknameTextField.text,
+            let password = passwordTextField.text,
+            let passwordConfirmation = confirmPasswordTextField.text,
             !email.isEmpty,
-            !password.isEmpty
+            !nickname.isEmpty,
+            !password.isEmpty,
+            !passwordConfirmation.isEmpty
             else {
-                return print("Email and password are required.")
+                return print("All data must be provided.")
         }
+        
         
         let params = [
             "data": [
-                "type": "session",
-                "attributes": [
-                    "email": String(email),
-                    "password": String(password)
+                "type" : "users",
+                "attributes" : [
+                    "username" : String(nickname),
+                    "email" : String(email),
+                    "password" : String(password),
+                    "password_confirmation" : String(passwordConfirmation)
                 ]
             ]
         ]
         
         Alamofire
             .request(
-                "https://pokeapi.infinum.co/api/v1/users/login",
+                "https://pokeapi.infinum.co/api/v1/users",
                 method: .post,
                 parameters: params)
             .validate()
@@ -110,30 +120,7 @@ class LoginViewController: UIViewController {
                 
         }
         
-    }
-    
-    @IBAction func signUpButtonTouched(_ sender: Any) {
-        
-        let bundle = Bundle.main
-        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-        let registerViewController = storyboard.instantiateViewController(
-            withIdentifier: "RegisterViewController"
-        )
-        
-        navigationController?.pushViewController(registerViewController, animated: true)
         
     }
-}
-
-extension UIViewController {
     
-    func hideKeyboardWhenTappedAround() {
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
 }

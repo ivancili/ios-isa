@@ -1,0 +1,28 @@
+PODS:
+  - Alamofire (4.5.0)
+  - CodableAlamofire (0.9.0):
+    - Alamofire (~> 4.4)
+  - MBProgressHUD (1.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.4)
+  - CodableAlamofire (from `https://github.com/Otbivnoe/CodableAlamofire.git`)
+  - MBProgressHUD
+
+EXTERNAL SOURCES:
+  CodableAlamofire:
+    :git: https://github.com/Otbivnoe/CodableAlamofire.git
+
+CHECKOUT OPTIONS:
+  CodableAlamofire:
+    :commit: 32a155539c25a862aa979c2d4c53090afbafadae
+    :git: https://github.com/Otbivnoe/CodableAlamofire.git
+
+SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  CodableAlamofire: 14c935ed3fbc51f703da97603147eda24dbe1d49
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
+
+PODFILE CHECKSUM: e55110592cfe5a2d6a582d93f501db06c2b20f93
+
+COCOAPODS: 1.1.1
