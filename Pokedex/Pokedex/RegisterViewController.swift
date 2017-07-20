@@ -11,7 +11,7 @@ import Alamofire
 import MBProgressHUD
 import CodableAlamofire
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController, Alertable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nicknameTextField: UITextField!
@@ -26,6 +26,11 @@ class RegisterViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,8 +78,14 @@ class RegisterViewController: UIViewController {
             !nickname.isEmpty,
             !password.isEmpty,
             !passwordConfirmation.isEmpty
+            
             else {
                 MBProgressHUD.hide(for: self.view, animated: true)
+                
+                let title = "Error during registration"
+                let message = "Please provide email, nickname, password and password confirmation."
+                showAlert(with: title, message: message)
+                
                 return print("All data must be provided.")
         }
         
@@ -101,17 +112,21 @@ class RegisterViewController: UIViewController {
                 
                 switch response.result {
                 case .success:
-                    
                     MBProgressHUD.hide(for: self.view, animated: true)
                     HomeViewController.switchToHomeScreen(self.navigationController)
                     
                 case .failure:
-                    
                     MBProgressHUD.hide(for: self.view, animated: true)
+                    
                     if let data = response.data {
                         let json = String(data: data, encoding: String.Encoding.utf8)
                         print("FAILURE: \(String(describing: json))")
                     }
+                    
+                    let title = "Error during registration"
+                    let message = "Please provide email, nickname, password and password confirmation."
+                    self.showAlert(with: title, message: message)
+                    
                     self.emailTextField.text = ""
                     self.nicknameTextField.text = ""
                     self.passwordTextField.text = ""

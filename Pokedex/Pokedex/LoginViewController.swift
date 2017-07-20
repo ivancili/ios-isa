@@ -11,7 +11,7 @@ import MBProgressHUD
 import CodableAlamofire
 import Alamofire
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, Alertable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -24,6 +24,11 @@ class LoginViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,7 +55,7 @@ class LoginViewController: UIViewController {
                 self?.scrollView.contentInset = UIEdgeInsets.zero
                 
         }
-        
+                
     }
     
     deinit {
@@ -59,10 +64,6 @@ class LoginViewController: UIViewController {
     
     
     @IBAction func loginButtonTouched(_ sender: Any) {
-        
-        // Alamofire request
-        // If success -> navigation to Home
-        
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         guard
@@ -70,8 +71,14 @@ class LoginViewController: UIViewController {
             let password = passwordTextField.text,
             !email.isEmpty,
             !password.isEmpty
+            
             else {
                 MBProgressHUD.hide(for: self.view, animated: true)
+                
+                let title = "Invalid login data"
+                let message = "Please provide correct email and password"
+                showAlert(with: title, message: message)
+                
                 return print("Email and password are required.")
         }
         
@@ -95,17 +102,16 @@ class LoginViewController: UIViewController {
                 
                 switch response.result {
                 case .success:
-                    
                     MBProgressHUD.hide(for: self.view, animated: true)
                     HomeViewController.switchToHomeScreen(self.navigationController)
                     
                 case .failure:
-                    
                     MBProgressHUD.hide(for: self.view, animated: true)
-                    if let data = response.data {
-                        let json = String(data: data, encoding: String.Encoding.utf8)
-                        print("FAILURE: \(String(describing: json))")
-                    }
+                    
+                    let title = "Invalid login data"
+                    let message = "Please provide correct email and password"
+                    self.showAlert(with: title, message: message)
+                    
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""
                     
@@ -126,6 +132,5 @@ class LoginViewController: UIViewController {
         navigationController?.pushViewController(registerViewController, animated: true)
         
     }
+    
 }
-
-

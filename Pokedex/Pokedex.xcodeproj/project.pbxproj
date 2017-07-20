@@ -17,6 +17,7 @@
 		5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C80A1F10F10200B470E6 /* LoginViewController.swift */; };
 		5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */; };
 		5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */; };
+		5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA6DBCE1F2022C200D1E821 /* Alertable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		5C69C80A1F10F10200B470E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5CA6DBCE1F2022C200D1E821 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 		7E35E107540EA4629952A984 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8A07A683FBA6F328E5A731 /* Pods-Pokedex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 		5C69C7EC1F10EC8100B470E6 = {
 			isa = PBXGroup;
 			children = (
+				5C6BFBFC1F20FCEB0056F190 /* Protocols */,
 				5C1D6E931F1FFDDB002325CF /* Extensions */,
 				5C69C7F71F10EC8100B470E6 /* Pokedex */,
 				5C69C7F61F10EC8100B470E6 /* Products */,
@@ -97,6 +100,14 @@
 				5C4AFE031F1A81EF00F5C4EA /* User.swift */,
 			);
 			path = Pokedex;
+			sourceTree = "<group>";
+		};
+		5C6BFBFC1F20FCEB0056F190 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				5CA6DBCE1F2022C200D1E821 /* Alertable.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		ED9580B211455FD0BD097DF9 /* Pods */ = {
@@ -243,6 +254,7 @@
 				5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */,
 				5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */,
 				5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */,
+				5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */,
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
 				5C4AFE041F1A81EF00F5C4EA /* User.swift in Sources */,
 				5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */,
