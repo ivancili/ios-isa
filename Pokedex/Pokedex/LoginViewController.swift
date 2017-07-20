@@ -76,7 +76,7 @@ class LoginViewController: UIViewController, Alertable {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 
                 let title = "Invalid login data"
-                let message = "Please provide correct email and password"
+                let message = "Email and password are required"
                 showAlert(with: title, message: message)
                 
                 return print("Email and password are required.")
@@ -108,9 +108,13 @@ class LoginViewController: UIViewController, Alertable {
                 case .failure:
                     MBProgressHUD.hide(for: self.view, animated: true)
                     
-                    let title = "Invalid login data"
-                    let message = "Please provide correct email and password"
-                    self.showAlert(with: title, message: message)
+                    if let data = response.data {
+                        let errorResponse = try? JSONDecoder().decode(JSONError.self, from: data)
+                        
+                        let title = "Invalid login data"
+                        let message = errorResponse!.allErrorsAsString().trimmingCharacters(in: .whitespacesAndNewlines)
+                        self.showAlert(with: title, message: message)
+                    }
                     
                     self.emailTextField.text = ""
                     self.passwordTextField.text = ""

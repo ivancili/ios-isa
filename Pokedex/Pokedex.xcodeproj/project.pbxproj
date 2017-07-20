@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28412749A723AD3B4C723B67 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E35E107540EA4629952A984 /* Pods_Pokedex.framework */; };
+		5C1CB55E1F2149710023543E /* APIErrorHandling+JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CB55D1F2149710023543E /* APIErrorHandling+JSONError.swift */; };
 		5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */; };
 		5C4AFE041F1A81EF00F5C4EA /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4AFE031F1A81EF00F5C4EA /* User.swift */; };
 		5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C7F81F10EC8100B470E6 /* AppDelegate.swift */; };
@@ -15,6 +16,7 @@
 		5C69C8001F10EC8200B470E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C7FF1F10EC8200B470E6 /* Assets.xcassets */; };
 		5C69C8031F10EC8200B470E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C69C8011F10EC8200B470E6 /* LaunchScreen.storyboard */; };
 		5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69C80A1F10F10200B470E6 /* LoginViewController.swift */; };
+		5C6BFBFE1F21101C0056F190 /* JSONError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6BFBFD1F21101C0056F190 /* JSONError.swift */; };
 		5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */; };
 		5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */; };
 		5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA6DBCE1F2022C200D1E821 /* Alertable.swift */; };
@@ -22,6 +24,7 @@
 
 /* Begin PBXFileReference section */
 		1850639E23D89CC574E8A41C /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
+		5C1CB55D1F2149710023543E /* APIErrorHandling+JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIErrorHandling+JSONError.swift"; sourceTree = "<group>"; };
 		5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardHandling+UIViewController.swift"; sourceTree = "<group>"; };
 		5C4AFE031F1A81EF00F5C4EA /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		5C69C7F51F10EC8100B470E6 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -31,6 +34,7 @@
 		5C69C8021F10EC8200B470E6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5C69C8041F10EC8200B470E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5C69C80A1F10F10200B470E6 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		5C6BFBFD1F21101C0056F190 /* JSONError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONError.swift; sourceTree = "<group>"; };
 		5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5CA6DBCE1F2022C200D1E821 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
@@ -58,10 +62,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5C1CB55C1F2149000023543E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		5C1D6E931F1FFDDB002325CF /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */,
+				5C1CB55D1F2149710023543E /* APIErrorHandling+JSONError.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -69,6 +81,9 @@
 		5C69C7EC1F10EC8100B470E6 = {
 			isa = PBXGroup;
 			children = (
+				5C1CB55C1F2149000023543E /* Helper */,
+				5C4AFE031F1A81EF00F5C4EA /* User.swift */,
+				5C6BFBFD1F21101C0056F190 /* JSONError.swift */,
 				5C6BFBFC1F20FCEB0056F190 /* Protocols */,
 				5C1D6E931F1FFDDB002325CF /* Extensions */,
 				5C69C7F71F10EC8100B470E6 /* Pokedex */,
@@ -97,7 +112,6 @@
 				5C69C8011F10EC8200B470E6 /* LaunchScreen.storyboard */,
 				5C69C8041F10EC8200B470E6 /* Info.plist */,
 				5C69C80A1F10F10200B470E6 /* LoginViewController.swift */,
-				5C4AFE031F1A81EF00F5C4EA /* User.swift */,
 			);
 			path = Pokedex;
 			sourceTree = "<group>";
@@ -254,8 +268,10 @@
 				5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */,
 				5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */,
 				5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */,
+				5C1CB55E1F2149710023543E /* APIErrorHandling+JSONError.swift in Sources */,
 				5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */,
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
+				5C6BFBFE1F21101C0056F190 /* JSONError.swift in Sources */,
 				5C4AFE041F1A81EF00F5C4EA /* User.swift in Sources */,
 				5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */,
 			);

@@ -119,11 +119,11 @@ class RegisterViewController: UIViewController, Alertable {
                     MBProgressHUD.hide(for: self.view, animated: true)
                     
                     if let data = response.data {
-                        let json = String(data: data, encoding: String.Encoding.utf8)
-                        print("FAILURE: \(String(describing: json))")
+                        let errorResponse = try? JSONDecoder().decode(JSONError.self, from: data)
+                        print(errorResponse!.allErrorsAsString())
                     }
                     
-                    let title = "Error during registration"
+                    let title = "Invalid login data"
                     let message = "Please provide email, nickname, password and password confirmation."
                     self.showAlert(with: title, message: message)
                     
