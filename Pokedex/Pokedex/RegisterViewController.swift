@@ -113,7 +113,7 @@ class RegisterViewController: UIViewController, Alertable {
                 switch response.result {
                 case .success:
                     MBProgressHUD.hide(for: self.view, animated: true)
-                    HomeViewController.switchToHomeScreen(self.navigationController)
+                    HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
                     MBProgressHUD.hide(for: self.view, animated: true)
