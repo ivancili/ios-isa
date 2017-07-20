@@ -17,6 +17,9 @@ class LoginViewController: UIViewController, Alertable {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
+    weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
@@ -34,7 +37,7 @@ class LoginViewController: UIViewController, Alertable {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        NotificationCenter
+        notificationTokenKeyboardWillShow = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to show
@@ -48,7 +51,7 @@ class LoginViewController: UIViewController, Alertable {
                 
         }
         
-        NotificationCenter
+        notificationTokenKeyboardWillHide = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 // keyboard is about to hide
@@ -59,7 +62,8 @@ class LoginViewController: UIViewController, Alertable {
     }
     
     deinit {
-        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
     
