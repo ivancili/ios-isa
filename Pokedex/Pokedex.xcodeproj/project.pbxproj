@@ -20,6 +20,7 @@
 		5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */; };
 		5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */; };
 		5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA6DBCE1F2022C200D1E821 /* Alertable.swift */; };
+		5CC48E331F236BEB00335810 /* PokemonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC48E321F236BEB00335810 /* PokemonModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5CA6DBCE1F2022C200D1E821 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		5CC48E321F236BEB00335810 /* PokemonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonModel.swift; sourceTree = "<group>"; };
 		7E35E107540EA4629952A984 /* Pods_Pokedex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Pokedex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF8A07A683FBA6F328E5A731 /* Pods-Pokedex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -67,6 +69,7 @@
 			children = (
 				5C4AFE031F1A81EF00F5C4EA /* UserModel.swift */,
 				5C6BFBFD1F21101C0056F190 /* ErrorModel.swift */,
+				5CC48E321F236BEB00335810 /* PokemonModel.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */,
 				5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */,
 				5C69C80B1F10F10200B470E6 /* LoginViewController.swift in Sources */,
+				5CC48E331F236BEB00335810 /* PokemonModel.swift in Sources */,
 				5C1CB55E1F2149710023543E /* APIErrorHandling+ErrorModel.swift in Sources */,
 				5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */,
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
