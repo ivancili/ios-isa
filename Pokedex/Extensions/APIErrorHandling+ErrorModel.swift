@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension JSONError {
+extension ErrorModel {
     
     func allErrorsAsString() -> String {
         var data = ""

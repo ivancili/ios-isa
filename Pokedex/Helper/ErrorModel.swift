@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct JSONError: Codable, Error {
+struct ErrorModel: Codable, Error {
     let errors: [APIError]
 }
 

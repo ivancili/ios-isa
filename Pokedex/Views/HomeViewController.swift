@@ -11,7 +11,7 @@ import Foundation
 
 class HomeViewController: UIViewController {
     
-    var data: User?
+    var data: UserModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,14 +21,14 @@ class HomeViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    private static func instantiate(dataToInject data: User) -> HomeViewController {
+    private static func instantiate(dataToInject data: UserModel) -> HomeViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
         vc.data = data
         return vc
     }
     
-    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject data: User) -> Void {
+    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject data: UserModel) -> Void {
         navigationController?.setViewControllers([HomeViewController.instantiate(dataToInject: data)], animated: true)
     }
     

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct UserModel: Codable {
     
     private struct DataAttributes: Codable {
         let email: String
