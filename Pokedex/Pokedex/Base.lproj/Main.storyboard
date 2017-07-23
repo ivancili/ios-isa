@@ -634,13 +634,13 @@
             <objects>
                 <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UHO-a2-v86" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="8mT-XK-W2b">
+                    <navigationBar key="navigationBar" contentMode="scaleAspectFit" translucent="NO" id="8mT-XK-W2b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="barTintColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
@@ -732,18 +732,21 @@
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-person" translatesAutoresizingMaskIntoConstraints="NO" id="EcL-5Y-wTd">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="165.66666666666666"/>
                                                             </imageView>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-add" translatesAutoresizingMaskIntoConstraints="NO" id="LVz-bV-jRC">
-                                                                <rect key="frame" x="338.66666666666674" y="111.66666666666666" width="55.333333333333314" height="54"/>
-                                                            </imageView>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGK-Fq-C5T">
+                                                                <rect key="frame" x="350" y="111.66666666666666" width="54" height="54"/>
+                                                                <state key="normal" image="ic-add"/>
+                                                                <connections>
+                                                                    <action selector="addPhotoButtonTouched:" destination="mMM-FY-bCR" eventType="touchUpInside" id="mCr-pE-bGs"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="LVz-bV-jRC" secondAttribute="trailing" constant="20" id="Mf1-ga-hIs"/>
+                                                            <constraint firstAttribute="bottom" secondItem="wGK-Fq-C5T" secondAttribute="bottom" id="4f0-z9-gO5"/>
                                                             <constraint firstAttribute="bottom" secondItem="EcL-5Y-wTd" secondAttribute="bottom" id="Tfl-Wp-VgE"/>
-                                                            <constraint firstAttribute="bottom" secondItem="LVz-bV-jRC" secondAttribute="bottom" id="dtF-BW-ucS"/>
                                                             <constraint firstItem="EcL-5Y-wTd" firstAttribute="leading" secondItem="7nM-ue-b5p" secondAttribute="leading" id="e0N-ML-gZu"/>
+                                                            <constraint firstAttribute="trailing" secondItem="wGK-Fq-C5T" secondAttribute="trailing" constant="10" id="hEH-zz-5zg"/>
                                                             <constraint firstAttribute="trailing" secondItem="EcL-5Y-wTd" secondAttribute="trailing" id="nEO-uq-GwZ"/>
-                                                            <constraint firstItem="LVz-bV-jRC" firstAttribute="width" secondItem="EcL-5Y-wTd" secondAttribute="height" multiplier="20:60" id="v2l-yi-fmf"/>
                                                             <constraint firstItem="EcL-5Y-wTd" firstAttribute="top" secondItem="7nM-ue-b5p" secondAttribute="top" id="w8T-aE-N0q"/>
                                                             <constraint firstItem="EcL-5Y-wTd" firstAttribute="width" secondItem="7nM-ue-b5p" secondAttribute="height" multiplier="5:2" id="yb3-Bc-9gh"/>
                                                         </constraints>
@@ -1165,6 +1168,9 @@
                                 <state key="normal" title="Save">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="saveButtonTouched:" destination="mMM-FY-bCR" eventType="touchUpInside" id="mya-El-Wup"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1179,6 +1185,15 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vUN-AE-Ic1"/>
                     </view>
+                    <connections>
+                        <outlet property="abilitiesTextField" destination="dqT-zy-nhM" id="ijj-6f-EUQ"/>
+                        <outlet property="descriptionTextField" destination="cIm-FD-Lvb" id="2js-1k-SMP"/>
+                        <outlet property="heightTextField" destination="nPX-UC-iRw" id="whm-bL-FfO"/>
+                        <outlet property="imageView" destination="EcL-5Y-wTd" id="gWX-gB-LQg"/>
+                        <outlet property="nameTextField" destination="zXL-Jl-usC" id="gzq-dT-OyZ"/>
+                        <outlet property="typeTextField" destination="hXR-hk-SnM" id="Jen-iV-KAO"/>
+                        <outlet property="weightTextField" destination="3Gy-ix-QpM" id="n1f-qb-dZl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rdJ-pv-3bX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

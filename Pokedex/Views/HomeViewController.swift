@@ -20,7 +20,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     var data: UserModel?
-    var pokemons: [PokemonModel]?
+    var pokemons: [PokemonModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +36,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
         self.navigationItem.leftBarButtonItem = leftButton
         
-        let imageRight = UIImage(named: "ic-add")
+        let imageRight = UIImage(named: "ic-plus")
         let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
         self.navigationItem.rightBarButtonItem = rightButton
         
@@ -44,13 +44,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - Table setup -
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pokemons?.count ?? 0
+        return pokemons.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PokemonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell", for: indexPath) as! PokemonTableViewCell
         
-        let name = pokemons?[indexPath.row].attributes.name
+        let name = pokemons[indexPath.row].attributes.name
         cell.pokemonNameLabel?.text = name
         
         return cell
@@ -78,7 +78,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 case .success:
                     print(response.result)
                     
-                    self.pokemons = response.value
+                    self.pokemons = response.value!
                     self.tableView.reloadData()
                     
                 case .failure:
