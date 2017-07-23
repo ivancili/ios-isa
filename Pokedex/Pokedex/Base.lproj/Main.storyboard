@@ -13,7 +13,7 @@
         <!--Login View Controller-->
         <scene sceneID="LHz-45-KAb">
             <objects>
-                <viewController id="zIF-wG-oy8" customClass="LoginViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="zIF-wG-oy8" customClass="LoginViewController" customModule="Pokedex" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Nyw-aI-aEU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -631,7 +631,7 @@
         <!--Navigation Controller-->
         <scene sceneID="TqT-77-6pD">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="UHO-a2-v86" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="NavigationController" automaticallyAdjustsScrollViewInsets="NO" id="UHO-a2-v86" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="8mT-XK-W2b">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>

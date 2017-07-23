@@ -87,7 +87,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                 
                 let title = "Error during registration"
                 let message = "Please provide email, nickname, password and password confirmation."
-                showAlert(with: title, message: message)
+                showAlertWithOK(with: title, message: message)
                 
                 return print("All data must be provided.")
         }
@@ -128,7 +128,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                     
                     let title = "Invalid login data"
                     let message = "Please provide email, nickname, password and password confirmation."
-                    self.showAlert(with: title, message: message)
+                    self.showAlertWithOK(with: title, message: message)
                     
                     self.emailTextField.text = ""
                     self.nicknameTextField.text = ""

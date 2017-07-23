@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		28412749A723AD3B4C723B67 /* Pods_Pokedex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E35E107540EA4629952A984 /* Pods_Pokedex.framework */; };
+		5C0B37171F24CC3C00C1A9FB /* CustomColors+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C0B37161F24CC3C00C1A9FB /* CustomColors+UIColor.swift */; };
 		5C1CB55E1F2149710023543E /* APIErrorHandling+ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1CB55D1F2149710023543E /* APIErrorHandling+ErrorModel.swift */; };
 		5C1D6E951F1FFE03002325CF /* KeyboardHandling+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */; };
 		5C4AFE041F1A81EF00F5C4EA /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4AFE031F1A81EF00F5C4EA /* UserModel.swift */; };
@@ -27,6 +28,7 @@
 
 /* Begin PBXFileReference section */
 		1850639E23D89CC574E8A41C /* Pods-Pokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Pokedex.release.xcconfig"; path = "Pods/Target Support Files/Pods-Pokedex/Pods-Pokedex.release.xcconfig"; sourceTree = "<group>"; };
+		5C0B37161F24CC3C00C1A9FB /* CustomColors+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CustomColors+UIColor.swift"; sourceTree = "<group>"; };
 		5C1CB55D1F2149710023543E /* APIErrorHandling+ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "APIErrorHandling+ErrorModel.swift"; sourceTree = "<group>"; };
 		5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KeyboardHandling+UIViewController.swift"; sourceTree = "<group>"; };
 		5C4AFE031F1A81EF00F5C4EA /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 			children = (
 				5C1D6E941F1FFE03002325CF /* KeyboardHandling+UIViewController.swift */,
 				5C1CB55D1F2149710023543E /* APIErrorHandling+ErrorModel.swift */,
+				5C0B37161F24CC3C00C1A9FB /* CustomColors+UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				5C69C7F91F10EC8100B470E6 /* AppDelegate.swift in Sources */,
 				5C6BFBFE1F21101C0056F190 /* ErrorModel.swift in Sources */,
 				5C4AFE041F1A81EF00F5C4EA /* UserModel.swift in Sources */,
+				5C0B37171F24CC3C00C1A9FB /* CustomColors+UIColor.swift in Sources */,
 				5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */,
 				5C8F0F351F24B8BA006100A7 /* Progressable.swift in Sources */,
 				5CC48E3B1F23915500335810 /* PokemonTableViewCell.swift in Sources */,

@@ -29,7 +29,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationController?.navigationBar.isHidden = false
+        let leftButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-logout"), style: .plain, target: self, action: #selector(HomeViewController.logoutUserFromAPI))
+        self.navigationItem.leftBarButtonItem = leftButton
+        
     }
     
     // MARK: - Table setup -
@@ -71,8 +75,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             "Content-Type": "application/json"
         ]
         
-        showProgressHud(messageToShow: "Retriving list of Pokemons...")
-        
         Alamofire
             .request("https://pokeapi.infinum.co/api/v1/pokemons", method: .get, headers: headers)
             .validate()
@@ -83,12 +85,48 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     print(response.result)
                     
                     self.pokemons = response.value
-                    self.hideProgressHud()
                     self.tableView.reloadData()
                     
                 case .failure:
                     print(response.result)
-                    self.hideProgressHud()
+                    
+                    if let data = response.data {
+                        let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)
+                        print(errorResponse ?? "NOT DECODEABLE ERROR")
+                    }
+                    
+                }
+        }
+        
+    }
+    
+    @objc private func logoutUserFromAPI() {
+        
+        guard
+            let token = data?.authToken,
+            let email = data?.email
+            else { return }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token token=\"\(token)\", email=\"\(email)\"",
+            "Content-Type": "text/html"
+        ]
+        
+        Alamofire
+            .request("https://pokeapi.infinum.co/api/v1/users/logout", method: .delete, headers: headers)
+            .validate()
+            .responseJSON() { response in
+                
+                switch response.result {
+                case .success:
+                    print(response.result)
+                    
+                    let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+                    let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+                    self.navigationController?.setViewControllers([loginViewController], animated: true)
+                    
+                case .failure:
+                    print(response.result)
                     
                     if let data = response.data {
                         let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)

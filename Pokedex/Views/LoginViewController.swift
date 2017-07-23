@@ -81,7 +81,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
                 
                 let title = "Invalid login data"
                 let message = "Email and password are required"
-                showAlert(with: title, message: message)
+                showAlertWithOK(with: title, message: message)
                 
                 return print("Email and password are required.")
         }
@@ -117,7 +117,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
                         
                         let title = "Invalid login data"
                         let message = errorResponse!.allErrorsAsString().trimmingCharacters(in: .whitespacesAndNewlines)
-                        self.showAlert(with: title, message: message)
+                        self.showAlertWithOK(with: title, message: message)
                     }
                     
                     self.emailTextField.text = ""
