@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import MBProgressHUD
 import CodableAlamofire
 import Alamofire
 
-class LoginViewController: UIViewController, Alertable {
+class LoginViewController: UIViewController, Alertable, Progressable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -68,7 +67,8 @@ class LoginViewController: UIViewController, Alertable {
     
     
     @IBAction func loginButtonTouched(_ sender: Any) {
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        
+        showProgressHud(messageToShow: "Logging in...")
         
         guard
             let email = emailTextField.text,
@@ -77,7 +77,7 @@ class LoginViewController: UIViewController, Alertable {
             !password.isEmpty
             
             else {
-                MBProgressHUD.hide(for: self.view, animated: true)
+                hideProgressHud()
                 
                 let title = "Invalid login data"
                 let message = "Email and password are required"
@@ -106,11 +106,11 @@ class LoginViewController: UIViewController, Alertable {
                 
                 switch response.result {
                 case .success:
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     
                     if let data = response.data {
                         let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)

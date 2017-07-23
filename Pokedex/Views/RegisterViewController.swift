@@ -8,10 +8,9 @@
 
 import UIKit
 import Alamofire
-import MBProgressHUD
 import CodableAlamofire
 
-class RegisterViewController: UIViewController, Alertable {
+class RegisterViewController: UIViewController, Alertable, Progressable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var nicknameTextField: UITextField!
@@ -71,7 +70,7 @@ class RegisterViewController: UIViewController, Alertable {
         // Alamofire request
         // If success -> navigation to Home
         
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        showProgressHud(messageToShow: "Registering new user...")
         
         guard
             let email = emailTextField.text,
@@ -84,7 +83,7 @@ class RegisterViewController: UIViewController, Alertable {
             !passwordConfirmation.isEmpty
             
             else {
-                MBProgressHUD.hide(for: self.view, animated: true)
+                hideProgressHud()
                 
                 let title = "Error during registration"
                 let message = "Please provide email, nickname, password and password confirmation."
@@ -116,11 +115,11 @@ class RegisterViewController: UIViewController, Alertable {
                 
                 switch response.result {
                 case .success:
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     
                     if let data = response.data {
                         let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)

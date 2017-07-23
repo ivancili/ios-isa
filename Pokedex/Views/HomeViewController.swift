@@ -10,9 +10,8 @@ import UIKit
 import Foundation
 import Alamofire
 import CodableAlamofire
-import MBProgressHUD
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Alertable {
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Alertable, Progressable {
     
     @IBOutlet weak var tableView: UITableView! { didSet {
         tableView.delegate = self
@@ -65,14 +64,14 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard
             let token = data?.authToken,
             let email = data?.email
-        else { return }
+            else { return }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\"\(token)\", email=\"\(email)\"",
             "Content-Type": "application/json"
         ]
         
-        MBProgressHUD.showAdded(to: self.view, animated: true)
+        showProgressHud(messageToShow: "Retriving list of Pokemons...")
         
         Alamofire
             .request("https://pokeapi.infinum.co/api/v1/pokemons", method: .get, headers: headers)
@@ -84,12 +83,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     print(response.result)
                     
                     self.pokemons = response.value
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     self.tableView.reloadData()
                     
                 case .failure:
                     print(response.result)
-                    MBProgressHUD.hide(for: self.view, animated: true)
+                    self.hideProgressHud()
                     
                     if let data = response.data {
                         let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)

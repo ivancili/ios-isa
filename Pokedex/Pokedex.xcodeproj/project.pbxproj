@@ -19,6 +19,7 @@
 		5C6BFBFE1F21101C0056F190 /* ErrorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C6BFBFD1F21101C0056F190 /* ErrorModel.swift */; };
 		5C7E84EB1F196912000D8CEB /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */; };
 		5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */; };
+		5C8F0F351F24B8BA006100A7 /* Progressable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C8F0F341F24B8BA006100A7 /* Progressable.swift */; };
 		5CA6DBCF1F2022C300D1E821 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA6DBCE1F2022C200D1E821 /* Alertable.swift */; };
 		5CC48E331F236BEB00335810 /* PokemonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC48E321F236BEB00335810 /* PokemonModel.swift */; };
 		5CC48E3B1F23915500335810 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC48E3A1F23915500335810 /* PokemonTableViewCell.swift */; };
@@ -39,6 +40,7 @@
 		5C6BFBFD1F21101C0056F190 /* ErrorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorModel.swift; sourceTree = "<group>"; };
 		5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		5C8F0F341F24B8BA006100A7 /* Progressable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progressable.swift; sourceTree = "<group>"; };
 		5CA6DBCE1F2022C200D1E821 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 		5CC48E321F236BEB00335810 /* PokemonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonModel.swift; sourceTree = "<group>"; };
 		5CC48E3A1F23915500335810 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				5CA6DBCE1F2022C200D1E821 /* Alertable.swift */,
+				5C8F0F341F24B8BA006100A7 /* Progressable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				5C6BFBFE1F21101C0056F190 /* ErrorModel.swift in Sources */,
 				5C4AFE041F1A81EF00F5C4EA /* UserModel.swift in Sources */,
 				5C7E84ED1F19867F000D8CEB /* HomeViewController.swift in Sources */,
+				5C8F0F351F24B8BA006100A7 /* Progressable.swift in Sources */,
 				5CC48E3B1F23915500335810 /* PokemonTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
