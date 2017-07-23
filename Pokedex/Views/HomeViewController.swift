@@ -31,8 +31,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.isHidden = false
-        let leftButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-logout"), style: .plain, target: self, action: #selector(HomeViewController.logoutUserFromAPI))
+        
+        let leftButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-logout"), style: .done, target: self, action: #selector(HomeViewController.logoutUser))
         self.navigationItem.leftBarButtonItem = leftButton
+        
+        let rightButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-add"), style: .done, target: self, action: #selector(HomeViewController.switchToNewPokemonScreen))
+        self.navigationItem.rightBarButtonItem = rightButton
         
     }
     
@@ -100,7 +104,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    @objc private func logoutUserFromAPI() {
+    @objc private func logoutUser() {
         
         guard
             let token = data?.authToken,
@@ -135,6 +139,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 }
         }
+        
+    }
+    
+    // MARK: - View switching -
+    @objc private func switchToNewPokemonScreen() {
+        
+        
         
     }
     
