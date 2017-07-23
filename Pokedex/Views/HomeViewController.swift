@@ -32,10 +32,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.navigationController?.navigationBar.isHidden = false
         
-        let leftButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-logout"), style: .done, target: self, action: #selector(HomeViewController.logoutUser))
+        let imageLeft = UIImage(named: "ic-logout")
+        let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
         self.navigationItem.leftBarButtonItem = leftButton
         
-        let rightButton = UIBarButtonItem(image: #imageLiteral(resourceName: "ic-add"), style: .done, target: self, action: #selector(HomeViewController.switchToNewPokemonScreen))
+        let imageRight = UIImage(named: "ic-add")
+        let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
         self.navigationItem.rightBarButtonItem = rightButton
         
     }
@@ -52,18 +54,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.pokemonNameLabel?.text = name
         
         return cell
-    }
-    
-    // MARK: - Helper -
-    private static func instantiate(dataToInject data: UserModel) -> HomeViewController {
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        vc.data = data
-        return vc
-    }
-    
-    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject data: UserModel) -> Void {
-        navigationController?.setViewControllers([HomeViewController.instantiate(dataToInject: data)], animated: true)
     }
     
     // MARK: - API requests -
@@ -143,10 +133,19 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // MARK: - View switching -
-    @objc private func switchToNewPokemonScreen() {
-        
-        
-        
+    @objc private func goToNewPokemonScreen() {
+        AddNewPokemonViewController.switchToAddNewPokemonScreen(self.navigationController, dataToInject: data!)
+    }
+    
+    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject data: UserModel) -> Void {
+        navigationController?.setViewControllers([HomeViewController.instantiate(dataToInject: data)], animated: true)
+    }
+    
+    private static func instantiate(dataToInject data: UserModel) -> HomeViewController {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+        vc.data = data
+        return vc
     }
     
 }
