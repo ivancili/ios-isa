@@ -16,8 +16,8 @@ class LoginViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
-    weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
+    private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +65,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
         NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
-    
+    // MARK: - Login API call -
     @IBAction func loginButtonTouched(_ sender: Any) {
         
         showProgressHud(messageToShow: "Logging in...")
@@ -129,6 +129,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
         
     }
     
+    // MARK: - View switching -
     @IBAction func signUpButtonTouched(_ sender: Any) {
         
         let bundle = Bundle.main

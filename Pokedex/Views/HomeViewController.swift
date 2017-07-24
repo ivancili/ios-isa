@@ -21,10 +21,25 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     var data: UserModel?
     var pokemons: [PokemonModel] = []
+    var notificationTokenFromPokemonUpload: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.fetchListOfPokemons()
+        
+        notificationTokenFromPokemonUpload = NotificationCenter
+            .default
+            .addObserver(
+                forName: NotificationPokemonDidUpload,
+                object: nil,
+                queue: nil,
+                using: { [weak self] notification in
+                    guard let newPokemon = notification.userInfo?[NotificationPokemonValue] as? PokemonModel else { return }
+                    self?.pokemons.append(newPokemon)
+                    self?.tableView.reloadData()
+                }
+        )
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,6 +55,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
         self.navigationItem.rightBarButtonItem = rightButton
         
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(notificationTokenFromPokemonUpload!)
     }
     
     // MARK: - Table setup -

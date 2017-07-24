@@ -718,7 +718,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zRZ-oi-qi0">
-                                <rect key="frame" x="0.0" y="20" width="414" height="716"/>
+                                <rect key="frame" x="0.0" y="20" width="414" height="666"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f8R-aD-CT2">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="611.66666666666663"/>
@@ -1176,9 +1176,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="zRZ-oi-qi0" firstAttribute="leading" secondItem="vUN-AE-Ic1" secondAttribute="leading" id="2Ah-IN-5bi"/>
+                            <constraint firstItem="sPM-lm-nDm" firstAttribute="top" secondItem="zRZ-oi-qi0" secondAttribute="bottom" id="CS5-4q-f9P"/>
                             <constraint firstItem="vUN-AE-Ic1" firstAttribute="bottom" secondItem="sPM-lm-nDm" secondAttribute="bottom" id="HER-6s-m3c"/>
                             <constraint firstItem="vUN-AE-Ic1" firstAttribute="trailing" secondItem="sPM-lm-nDm" secondAttribute="trailing" id="IR0-f6-Fwj"/>
-                            <constraint firstItem="vUN-AE-Ic1" firstAttribute="bottom" secondItem="zRZ-oi-qi0" secondAttribute="bottom" id="W9K-O8-lds"/>
                             <constraint firstItem="vUN-AE-Ic1" firstAttribute="trailing" secondItem="zRZ-oi-qi0" secondAttribute="trailing" id="lKX-ED-z56"/>
                             <constraint firstItem="zRZ-oi-qi0" firstAttribute="top" secondItem="vUN-AE-Ic1" secondAttribute="top" id="lXz-bC-QHu"/>
                             <constraint firstItem="sPM-lm-nDm" firstAttribute="leading" secondItem="vUN-AE-Ic1" secondAttribute="leading" id="tGb-Qi-luH"/>
@@ -1191,6 +1191,7 @@
                         <outlet property="heightTextField" destination="nPX-UC-iRw" id="whm-bL-FfO"/>
                         <outlet property="imageView" destination="EcL-5Y-wTd" id="gWX-gB-LQg"/>
                         <outlet property="nameTextField" destination="zXL-Jl-usC" id="gzq-dT-OyZ"/>
+                        <outlet property="scrollView" destination="zRZ-oi-qi0" id="uef-4F-xFr"/>
                         <outlet property="typeTextField" destination="hXR-hk-SnM" id="Jen-iV-KAO"/>
                         <outlet property="weightTextField" destination="3Gy-ix-QpM" id="n1f-qb-dZl"/>
                     </connections>

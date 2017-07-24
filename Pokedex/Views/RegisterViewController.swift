@@ -18,8 +18,8 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
-    weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
+    private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +65,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
+    // MARK: - Sign up API call -
     @IBAction func signupButtonTouched(_ sender: Any) {
         
         // Alamofire request
