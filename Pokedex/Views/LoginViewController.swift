@@ -14,10 +14,13 @@ class LoginViewController: UIViewController, Alertable, Progressable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var buttonsBottomConstraint: NSLayoutConstraint!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    private weak var loginRequest: DataRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,25 +42,26 @@ class LoginViewController: UIViewController, Alertable, Progressable {
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to show
-                guard
-                    let userInfo = notification.userInfo,
-                    let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                        return
+                
+                if let userInfo = notification.userInfo, let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    self?.buttonsBottomConstraint.constant = frame.height
+                } else {
+                    return
                 }
-                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-                self?.scrollView.contentInset = contentInset
                 
         }
         
         notificationTokenKeyboardWillHide = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to hide
-                self?.scrollView.contentInset = UIEdgeInsets.zero
-                
+                self?.buttonsBottomConstraint.constant = 0
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        loginRequest?.cancel()
     }
     
     deinit {
@@ -75,15 +79,14 @@ class LoginViewController: UIViewController, Alertable, Progressable {
             let password = passwordTextField.text,
             !email.isEmpty,
             !password.isEmpty
-            
             else {
                 hideProgressHud()
                 
                 let title = "Invalid login data"
                 let message = "Email and password are required"
-                showAlertWithOK(with: title, message: message)
+                showAlertWithOK(with: title, message: message, nil)
                 
-                return print("Email and password are required.")
+                return
         }
         
         let params = [
@@ -96,7 +99,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
             ]
         ]
         
-        Alamofire
+        loginRequest = Alamofire
             .request(
                 "https://pokeapi.infinum.co/api/v1/users/login",
                 method: .post,
@@ -117,7 +120,7 @@ class LoginViewController: UIViewController, Alertable, Progressable {
                         
                         let title = "Invalid login data"
                         let message = errorResponse!.allErrorsAsString().trimmingCharacters(in: .whitespacesAndNewlines)
-                        self.showAlertWithOK(with: title, message: message)
+                        self.showAlertWithOK(with: title, message: message, nil)
                     }
                     
                     self.emailTextField.text = ""

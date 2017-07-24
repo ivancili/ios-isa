@@ -14,14 +14,12 @@ class PokemonTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         self.contentView.layer.borderWidth = 0.75
         self.contentView.layer.borderColor = (UIColor.lightGray).cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {

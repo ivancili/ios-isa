@@ -16,10 +16,13 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
+    
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var signUpButtonBottomConstraint: NSLayoutConstraint!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    private weak var signupRequest: DataRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,23 +44,25 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to show
-                guard
-                    let userInfo = notification.userInfo,
-                    let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                        return
+                
+                if let userInfo = notification.userInfo, let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    self?.signUpButtonBottomConstraint.constant = frame.height
+                } else {
+                    return
                 }
-                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-                self?.scrollView.contentInset = contentInset
         }
         
         notificationTokenKeyboardWillHide = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to hide
-                self?.scrollView.contentInset = UIEdgeInsets.zero
+                self?.signUpButtonBottomConstraint.constant = 0
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        signupRequest?.cancel()
     }
     
     deinit {
@@ -67,9 +72,6 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     
     // MARK: - Sign up API call -
     @IBAction func signupButtonTouched(_ sender: Any) {
-        
-        // Alamofire request
-        // If success -> navigation to Home
         
         showProgressHud(messageToShow: "Registering new user...")
         
@@ -82,15 +84,14 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
             !nickname.isEmpty,
             !password.isEmpty,
             !passwordConfirmation.isEmpty
-            
             else {
                 hideProgressHud()
                 
                 let title = "Error during registration"
                 let message = "Please provide email, nickname, password and password confirmation."
-                showAlertWithOK(with: title, message: message)
+                showAlertWithOK(with: title, message: message, nil)
                 
-                return print("All data must be provided.")
+                return
         }
         
         
@@ -106,7 +107,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
             ]
         ]
         
-        Alamofire
+        signupRequest = Alamofire
             .request(
                 "https://pokeapi.infinum.co/api/v1/users",
                 method: .post,
@@ -122,14 +123,9 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                 case .failure:
                     self.hideProgressHud()
                     
-                    if let data = response.data {
-                        let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)
-                        print(errorResponse!.allErrorsAsString())
-                    }
-                    
                     let title = "Invalid login data"
                     let message = "Please provide email, nickname, password and password confirmation."
-                    self.showAlertWithOK(with: title, message: message)
+                    self.showAlertWithOK(with: title, message: message, nil)
                     
                     self.emailTextField.text = ""
                     self.nicknameTextField.text = ""

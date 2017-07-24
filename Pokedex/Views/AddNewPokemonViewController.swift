@@ -20,9 +20,11 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    private weak var uploadNewPokemonRequest: DataRequest?
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var heightTextField: UITextField!
@@ -43,23 +45,26 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillShow, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to show
-                guard
-                    let userInfo = notification.userInfo,
-                    let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
-                        return
+                
+                if let userInfo = notification.userInfo, let frame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                    self?.saveButtonBottomConstraint.constant = frame.height
+                } else {
+                    return
                 }
-                let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
-                self?.scrollView.contentInset = contentInset
+                
         }
         
         notificationTokenKeyboardWillHide = NotificationCenter
             .default
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
-                // keyboard is about to hide
-                self?.scrollView.contentInset = UIEdgeInsets.zero
+                self?.saveButtonBottomConstraint.constant = 0
         }
         
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        uploadNewPokemonRequest?.cancel()
     }
     
     deinit {
@@ -122,53 +127,32 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         guard
             let token = data?.authToken,
             let email = data?.email
-        else { return }
+            else {
+                return
+        }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\"\(token)\", email=\"\(email)\"",
             "Content-Type": "text/html"
         ]
         
-        /*
-         guard
-         let name = nameTextField.text,
-         let height = heightTextField.text,
-         let weight = weightTextField.text,
-         let description = descriptionTextField.text,
-         let image = imageView.image,
-         !name.isEmpty,
-         !height.isEmpty,
-         !weight.isEmpty
-         else { return }
-         
-         let attributes = [
-         "name": name,
-         "height": height,
-         "weight": weight,
-         "order": String(arc4random_uniform(50)),
-         "is_default": (arc4random_uniform(2) == UInt32(1) ? String(true) : String(false)),
-         "gender_id": String(arc4random_uniform(50)),
-         "base_experience": String(arc4random_uniform(50)),
-         "description": description
-         ]
-         */
-        
         guard
             let image = imageView.image,
             let name = nameTextField.text,
+            let height = heightTextField.text,
+            let weight = weightTextField.text,
             let description = descriptionTextField.text
-        else {
-            return
+            else {
+                self.showAlertsOnUploadError()
+                return
         }
         
         let attributes = [
             "name": name,
-            "height": "30",
-            "weight": "460",
-            "order": "19",
-            "is_default": "1",
-            "gender_id": "1",
-            "base_experience": "30",
+            "height": height,
+            "weight": weight,
+            "is_default": String(arc4random_uniform(2)),
+            "gender_id": String(arc4random_uniform(2)),
             "description": description
         ]
         
@@ -208,10 +192,10 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     
     private func processUploadRequest(_ uploadRequest: UploadRequest) {
         
-        uploadRequest.responseDecodableObject(keyPath: "data") { (response: DataResponse<PokemonModel>) in
+        uploadNewPokemonRequest = uploadRequest.responseDecodableObject(keyPath: "data") { (response: DataResponse<PokemonModel>) in
+            
             switch response.result {
             case .success(let pokemon):
-                print("DECODED: \(pokemon)")
                 
                 let notification = Notification(
                     name: NotificationPokemonDidUpload,
@@ -220,13 +204,15 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
                 )
                 NotificationCenter.default.post(notification)
                 
-                self.goToHomeScreen()
+                let title = "New Pokemon successfully created."
+                self.showAlertWithOK(with: title, message: nil, { [weak self] _ in
+                    self?.goToHomeScreen()
+                })
                 
-            case .failure(let error):
-                print("FAILURE: \(error)")
-                
+            case .failure:
                 self.showAlertsOnUploadError()
             }
+            
         }
         
     }
@@ -240,14 +226,15 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         let handleOK: ((UIAlertAction) -> Void)? = { [weak self] _ in
             self?.imageView.image = UIImage(named: "ic-person")
             self?.nameTextField.text = ""
-            self?.nameTextField.text = ""
             self?.heightTextField.text = ""
             self?.weightTextField.text = ""
+            self?.typeTextField.text = ""
+            self?.abilitiesTextField.text = ""
             self?.descriptionTextField.text = ""
         }
         
         let title = "Error while uploading data"
-        let message = "Press OK to try again, press Cancel to go to home screen."
+        let message = "Press OK to try adding new pokemon again, press Cancel to go to home screen."
         self.showAlertWithCancelAndOK(with: title, message: message, handleOK, handleCancel)
         
     }

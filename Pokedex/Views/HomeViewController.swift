@@ -19,9 +19,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    var data: UserModel?
-    var pokemons: [PokemonModel] = []
-    var notificationTokenFromPokemonUpload: NSObjectProtocol?
+    private var data: UserModel?
+    private var pokemons: [PokemonModel] = []
+    private var notificationTokenFromPokemonUpload: NSObjectProtocol?
+    private var pokemonFetchRequest: DataRequest?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +58,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        pokemonFetchRequest?.cancel()
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(notificationTokenFromPokemonUpload!)
     }
@@ -88,25 +94,28 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             "Content-Type": "application/json"
         ]
         
-        Alamofire
+        pokemonFetchRequest = Alamofire
             .request("https://pokeapi.infinum.co/api/v1/pokemons", method: .get, headers: headers)
             .validate()
             .responseDecodableObject(keyPath: "data") { (response: DataResponse<[PokemonModel]>) in
                 
                 switch response.result {
                 case .success:
-                    print(response.result)
-                    
                     self.pokemons = response.value!
                     self.tableView.reloadData()
                     
                 case .failure:
-                    print(response.result)
                     
-                    if let data = response.data {
-                        let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)
-                        print(errorResponse ?? "NOT DECODEABLE ERROR")
+                    let title = "Error while loading Pokemons"
+                    let message = "Press OK to try again, press Cancel to logout"
+                    let handleOK: ((UIAlertAction)->())? = { [weak self] _ in
+                        self?.fetchListOfPokemons()
                     }
+                    let handleCancel: ((UIAlertAction)->())? = { [weak self] _ in
+                        self?.logoutUser()
+                    }
+                    
+                    self.showAlertWithCancelAndOK(with: title, message: message, handleOK, handleCancel)
                     
                 }
         }
@@ -118,7 +127,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard
             let token = data?.authToken,
             let email = data?.email
-            else { return }
+            else {
+                return
+        }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\"\(token)\", email=\"\(email)\"",
@@ -132,19 +143,16 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 
                 switch response.result {
                 case .success:
-                    print(response.result)
                     
                     let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
                     let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
                     self.navigationController?.setViewControllers([loginViewController], animated: true)
                     
                 case .failure:
-                    print(response.result)
                     
-                    if let data = response.data {
-                        let errorResponse = try? JSONDecoder().decode(ErrorModel.self, from: data)
-                        print(errorResponse ?? "NOT DECODEABLE ERROR")
-                    }
+                    let title = "Something went wrong"
+                    let message = "Please try again"
+                    self.showAlertWithOK(with: title, message: message, nil)
                     
                 }
         }
