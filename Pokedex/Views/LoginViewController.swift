@@ -33,7 +33,10 @@ class LoginViewController: UIViewController, Alertable, Progressable {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         self.navigationController?.navigationBar.isHidden = true
+        self.emailTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.email.rawValue) as? String ?? ""
+        self.passwordTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.password.rawValue) as? String ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,14 +82,14 @@ class LoginViewController: UIViewController, Alertable, Progressable {
             let password = passwordTextField.text,
             !email.isEmpty,
             !password.isEmpty
-            else {
-                hideProgressHud()
-                
-                let title = "Invalid login data"
-                let message = "Email and password are required"
-                showAlertWithOK(with: title, message: message, nil)
-                
-                return
+        else {
+            self.hideProgressHud()
+            
+            let title = "Invalid login data"
+            let message = "Email and password are required"
+            self.showAlertWithOK(with: title, message: message, nil)
+            
+            return
         }
         
         let params = [
@@ -110,6 +113,10 @@ class LoginViewController: UIViewController, Alertable, Progressable {
                 switch response.result {
                 case .success:
                     self.hideProgressHud()
+                    
+                    UserDefaults.standard.set(email, forKey: UserDefaultsModel.email.rawValue)
+                    UserDefaults.standard.set(password, forKey: UserDefaultsModel.password.rawValue)
+                    
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
