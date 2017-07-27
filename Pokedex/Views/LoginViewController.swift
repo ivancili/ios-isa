@@ -24,19 +24,15 @@ class LoginViewController: UIViewController, Alertable, Progressable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = true
-        self.emailTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.email.rawValue) as? String ?? ""
-        self.passwordTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.password.rawValue) as? String ?? ""
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        emailTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.email.rawValue) as? String ?? ""
+        passwordTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.password.rawValue) as? String ?? ""
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,14 +78,14 @@ class LoginViewController: UIViewController, Alertable, Progressable {
             let password = passwordTextField.text,
             !email.isEmpty,
             !password.isEmpty
-        else {
-            self.hideProgressHud()
-            
-            let title = "Invalid login data"
-            let message = "Email and password are required"
-            self.showAlertWithOK(with: title, message: message, nil)
-            
-            return
+            else {
+                hideProgressHud()
+                
+                let title = "Invalid login data"
+                let message = "Email and password are required"
+                showAlertWithOK(with: title, message: message, nil)
+                
+                return
         }
         
         let params = [

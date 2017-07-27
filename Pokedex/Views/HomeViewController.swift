@@ -26,7 +26,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.fetchListOfPokemons()
+        
+        fetchListOfPokemons()
         
         notificationTokenFromPokemonUpload = NotificationCenter
             .default
@@ -46,15 +47,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.navigationController?.navigationBar.isHidden = false
+        navigationController?.setNavigationBarHidden(false, animated: true)
         
         let imageLeft = UIImage(named: "ic-logout")
         let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
-        self.navigationItem.leftBarButtonItem = leftButton
+        navigationItem.leftBarButtonItem = leftButton
         
         let imageRight = UIImage(named: "ic-plus")
         let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
-        self.navigationItem.rightBarButtonItem = rightButton
+        navigationItem.rightBarButtonItem = rightButton
         
     }
     
@@ -75,8 +76,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: PokemonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell", for: indexPath) as! PokemonTableViewCell
         
-        let name = pokemons[indexPath.row].attributes.name
-        cell.pokemonNameLabel?.text = name
+        let pokemon = pokemons[indexPath.row]
+        cell.configureCell(with: pokemon)
         
         return cell
     }
@@ -87,7 +88,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         guard
             let token = data?.authToken,
             let email = data?.email
-            else { return }
+            else {
+                return
+        }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\"\(token)\", email=\"\(email)\"",

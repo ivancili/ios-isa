@@ -26,4 +26,8 @@ class PokemonTableViewCell: UITableViewCell {
         super.prepareForReuse()
     }
     
+    func configureCell(with pokemon: PokemonModel) {
+        pokemonNameLabel.text = pokemon.attributes.name
+    }
+    
 }

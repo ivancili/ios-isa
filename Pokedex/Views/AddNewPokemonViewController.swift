@@ -16,7 +16,11 @@ let NotificationPokemonValue = "NotificationPokemonValue"
 class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Alertable, Progressable {
     
     private var data: UserModel?
-    private let photoPicker = UIImagePickerController()
+    private var photoPicker = UIImagePickerController() {
+        didSet {
+            photoPicker.delegate = self
+        }
+    }
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
@@ -35,8 +39,7 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
-        photoPicker.delegate = self
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -72,13 +75,9 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     // MARK: - View switching -
     private func goToHomeScreen() {
-        self.navigationController?.popViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     public static func switchToAddNewPokemonScreen(_ navigationController: UINavigationController?, dataToInject data: UserModel) -> Void {
@@ -143,7 +142,7 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
             let weight = weightTextField.text,
             let description = descriptionTextField.text
             else {
-                self.showAlertsOnUploadError()
+                showAlertsOnUploadError()
                 return
         }
         
@@ -160,10 +159,10 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
             multipartFormData: { multipartFormData in
                 
                 multipartFormData.append(
-                    UIImagePNGRepresentation(image)!,
+                    UIImageJPEGRepresentation(image, 0.5)!,
                     withName: "data[attributes][image]",
-                    fileName: "image.png",
-                    mimeType: "image/png"
+                    fileName: "image.jpeg",
+                    mimeType: "image/jpeg"
                 )
                 
                 for (key, value) in attributes {
@@ -235,7 +234,7 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         
         let title = "Error while uploading data"
         let message = "Press OK to try adding new pokemon again, press Cancel to go to home screen."
-        self.showAlertWithCancelAndOK(with: title, message: message, handleOK, handleCancel)
+        showAlertWithCancelAndOK(with: title, message: message, handleOK, handleCancel)
         
     }
     
