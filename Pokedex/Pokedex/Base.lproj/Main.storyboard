@@ -271,9 +271,10 @@
                     <navigationItem key="navigationItem" id="JAn-KQ-MRu"/>
                     <connections>
                         <outlet property="buttonsBottomConstraint" destination="bAA-sV-EWM" id="TDb-ck-rrW"/>
+                        <outlet property="emailBorder" destination="1xo-gY-BwB" id="NmD-CG-CHF"/>
                         <outlet property="emailTextField" destination="nbR-nG-Jbo" id="OY1-6l-Qo2"/>
+                        <outlet property="passwordBorder" destination="Rmp-Ni-9Qe" id="336-QU-Uel"/>
                         <outlet property="passwordTextField" destination="vnb-CM-Lxc" id="ct8-UI-zyj"/>
-                        <outlet property="scrollView" destination="5pe-Tz-7tv" id="QP5-QS-S5N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4Y-JK-nBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
