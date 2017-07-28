@@ -14,6 +14,7 @@ class LoginViewController: UIViewController, Progressable {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var pokeballImage: UIImageView!
     
     @IBOutlet weak var emailBorder: UIView!
     @IBOutlet weak var passwordBorder: UIView!
@@ -74,19 +75,25 @@ class LoginViewController: UIViewController, Progressable {
     func spinThePokeball() {
         
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
-        
         rotation.toValue = Double.pi * 2
-        rotation.duration = 3
+        rotation.duration = 1
         rotation.speed = 10
         rotation.isCumulative = true
         rotation.repeatCount = .greatestFiniteMagnitude
         
-        // image.layer.add(rotation, forKey: "spin")
+        pokeballImage.layer.add(rotation, forKey: "spin")
         
+        let scale = CABasicAnimation(keyPath: "transform.scale")
+        scale.toValue = 2
+        scale.duration = 1
+        scale.speed = 0.5
+        
+        pokeballImage.layer.add(scale, forKey: "scale")
     }
     
     func stopSpinningPokeball() {
-        // image.layer.removeAnimation(forKey: "spin")
+        pokeballImage.layer.removeAnimation(forKey: "spin")
+        pokeballImage.layer.removeAnimation(forKey: "scale")
     }
     
     func loginSuccessAnimation() {
@@ -95,18 +102,40 @@ class LoginViewController: UIViewController, Progressable {
     
     func loginFailAnimation() {
         loginResultAnimation(withColor: UIColor.red)
+        
+        let animation: () -> Void = {
+            self.pokeballImage.transform = CGAffineTransform.init(scaleX: 1.1, y: 1)
+        }
+        let completion: ((Bool) -> Void)? = { success in
+            if success {
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.pokeballImage.transform = CGAffineTransform.identity
+                })
+            }
+        }
+        
+        UIView.animate(
+            withDuration: 1,
+            delay: 0,
+            usingSpringWithDamping: 0.2,
+            initialSpringVelocity: 10,
+            options: .curveEaseInOut,
+            animations: animation,
+            completion: completion
+        )
+        
     }
     
     func loginResultAnimation(withColor color: UIColor) {
         
-        let height = min(self.emailBorder.layer.bounds.size.height, self.passwordBorder.layer.bounds.size.height) * 2
+        let height = CGFloat.init(4)
         let alpha = CGFloat.init(0.75)
         let cgColor = color.withAlphaComponent(alpha).cgColor
         
         let animation: ((UIView)->(() -> Void)) = { view in
             return {
-                view.layer.backgroundColor = UIColor.gray.cgColor;
-                view.layer.bounds.size.height = height/2
+                view.layer.backgroundColor = UIColor.lightGray.cgColor;
+                view.layer.bounds.size.height = 1
             }
         }
         
@@ -134,10 +163,15 @@ class LoginViewController: UIViewController, Progressable {
     // MARK: - Login API call -
     @IBAction func loginButtonTouched(_ sender: Any) {
         
+        spinThePokeball()
+        
         guard
             let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty
             else {
+                
+                stopSpinningPokeball()
                 loginFailAnimation()
+                
                 emailTextField.text = ""
                 passwordTextField.text = ""
                 
@@ -164,6 +198,7 @@ class LoginViewController: UIViewController, Progressable {
                 
                 switch response.result {
                 case .success:
+                    self.stopSpinningPokeball()
                     self.loginSuccessAnimation()
                     
                     UserDefaults.standard.set(email, forKey: UserDefaultsModel.email.rawValue)
@@ -175,6 +210,7 @@ class LoginViewController: UIViewController, Progressable {
                     })
                     
                 case .failure:
+                    self.stopSpinningPokeball()
                     self.loginFailAnimation()
                     
                     self.emailTextField.text = ""

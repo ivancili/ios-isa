@@ -7,6 +7,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13137.5"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,37 +24,57 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="562"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lQQ-id-0SZ" userLabel="SubView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="521.33333333333337"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-Tn-DFV">
-                                                <rect key="frame" x="0.0" y="50" width="414" height="494"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="XtH-Tn-DFV">
+                                                <rect key="frame" x="0.0" y="50" width="414" height="471.33333333333337"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id4-y6-oeW" userLabel="Image">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" axis="vertical" spacing="-10" translatesAutoresizingMaskIntoConstraints="NO" id="MKz-ix-bCi" userLabel="Images">
+                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="309.33333333333331"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokedex-grouped" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ri4-ZF-M7l">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="347"/>
-                                                            </imageView>
+                                                            <view contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sKK-nt-WoZ" userLabel="pokedex">
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="151.33333333333331"/>
+                                                                <subviews>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokedex-logo-big" translatesAutoresizingMaskIntoConstraints="NO" id="ONN-jT-ESF">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="151.33333333333331"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="ONN-jT-ESF" firstAttribute="leading" secondItem="sKK-nt-WoZ" secondAttribute="leading" id="Sn4-jx-KEo"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="ONN-jT-ESF" secondAttribute="trailing" id="hy3-GD-ic9"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="ONN-jT-ESF" secondAttribute="bottom" id="rks-pG-9UT"/>
+                                                                    <constraint firstItem="ONN-jT-ESF" firstAttribute="top" secondItem="sKK-nt-WoZ" secondAttribute="top" id="rwf-7k-fqV"/>
+                                                                </constraints>
+                                                            </view>
+                                                            <view contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K16-lV-nNf" userLabel="pokeball">
+                                                                <rect key="frame" x="0.0" y="141.33333333333331" width="414" height="167.99999999999994"/>
+                                                                <subviews>
+                                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pokeball" translatesAutoresizingMaskIntoConstraints="NO" id="V7U-HY-Mvu">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="167.99999999999997"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="bottom" secondItem="V7U-HY-Mvu" secondAttribute="bottom" id="LZo-RN-dwl"/>
+                                                                    <constraint firstItem="V7U-HY-Mvu" firstAttribute="top" secondItem="K16-lV-nNf" secondAttribute="top" id="OoX-ZD-pQu"/>
+                                                                    <constraint firstItem="V7U-HY-Mvu" firstAttribute="leading" secondItem="K16-lV-nNf" secondAttribute="leading" id="PmN-Y1-d0V"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="V7U-HY-Mvu" secondAttribute="trailing" id="QMS-nn-8ni"/>
+                                                                </constraints>
+                                                            </view>
                                                         </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="ri4-ZF-M7l" secondAttribute="bottom" id="AND-OB-DbI"/>
-                                                            <constraint firstItem="ri4-ZF-M7l" firstAttribute="leading" secondItem="id4-y6-oeW" secondAttribute="leading" id="IfT-YM-p0p"/>
-                                                            <constraint firstItem="ri4-ZF-M7l" firstAttribute="top" secondItem="id4-y6-oeW" secondAttribute="top" id="MUO-6f-sRy"/>
-                                                            <constraint firstAttribute="trailing" secondItem="ri4-ZF-M7l" secondAttribute="trailing" id="mPu-1R-kwr"/>
-                                                        </constraints>
-                                                    </view>
+                                                    </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="T59-Vq-KD4" userLabel="TextFields">
-                                                        <rect key="frame" x="0.0" y="382" width="414" height="112"/>
+                                                        <rect key="frame" x="0.0" y="359.33333333333337" width="414" height="112.00000000000006"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Rk-Pf-yMO" userLabel="EmailField">
-                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="414" height="40.000000000000057"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GaN-zR-5rc" userLabel="Icon">
-                                                                        <rect key="frame" x="20" y="0.0" width="24" height="40"/>
+                                                                        <rect key="frame" x="20" y="0.0" width="24" height="40.000000000000057"/>
                                                                         <subviews>
                                                                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-mail" translatesAutoresizingMaskIntoConstraints="NO" id="BPM-xA-HtA">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="40.000000000000057"/>
                                                                             </imageView>
                                                                         </subviews>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -65,10 +86,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uBT-5K-Slu" userLabel="Email">
-                                                                        <rect key="frame" x="64" y="0.0" width="330" height="40"/>
+                                                                        <rect key="frame" x="64" y="0.0" width="330" height="40.000000000000057"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="E-mail" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nbR-nG-Jbo">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="330" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="330" height="40.000000000000057"/>
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="next" textContentType="email"/>
@@ -96,7 +117,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jus-qd-OIr" userLabel="Border">
-                                                                <rect key="frame" x="0.0" y="50" width="414" height="1"/>
+                                                                <rect key="frame" x="0.0" y="50.000000000000057" width="414" height="1"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1xo-gY-BwB">
                                                                         <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -115,7 +136,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UKg-yB-ajq" userLabel="PasswordField">
-                                                                <rect key="frame" x="0.0" y="61" width="414" height="40"/>
+                                                                <rect key="frame" x="0.0" y="61.000000000000057" width="414" height="40"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lx9-Lf-a9H" userLabel="Icon">
                                                                         <rect key="frame" x="20" y="0.0" width="24" height="40"/>
@@ -182,7 +203,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnK-hG-1Fg" userLabel="Border">
-                                                                <rect key="frame" x="0.0" y="111" width="414" height="1"/>
+                                                                <rect key="frame" x="0.0" y="111.00000000000006" width="414" height="1"/>
                                                                 <subviews>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rmp-Ni-9Qe">
                                                                         <rect key="frame" x="20" y="0.0" width="374" height="1"/>
@@ -260,7 +281,9 @@
                         <constraints>
                             <constraint firstItem="BAs-lC-cVH" firstAttribute="leading" secondItem="ZWk-AL-Gj0" secondAttribute="leading" id="4Vr-gf-XUG"/>
                             <constraint firstItem="BAs-lC-cVH" firstAttribute="top" secondItem="5pe-Tz-7tv" secondAttribute="bottom" constant="10" id="5LE-j4-49m"/>
+                            <constraint firstItem="sKK-nt-WoZ" firstAttribute="height" secondItem="Nyw-aI-aEU" secondAttribute="height" multiplier="0.225" id="7xT-tj-Gaw"/>
                             <constraint firstItem="ZWk-AL-Gj0" firstAttribute="trailing" secondItem="5pe-Tz-7tv" secondAttribute="trailing" id="AMe-Mo-8Tc"/>
+                            <constraint firstItem="K16-lV-nNf" firstAttribute="height" secondItem="Nyw-aI-aEU" secondAttribute="height" multiplier="0.25" id="MH6-fO-AYt"/>
                             <constraint firstItem="ZWk-AL-Gj0" firstAttribute="trailing" secondItem="BAs-lC-cVH" secondAttribute="trailing" id="UQk-oh-G4B"/>
                             <constraint firstItem="5pe-Tz-7tv" firstAttribute="leading" secondItem="ZWk-AL-Gj0" secondAttribute="leading" id="abC-K1-Qsw"/>
                             <constraint firstItem="ZWk-AL-Gj0" firstAttribute="bottom" secondItem="BAs-lC-cVH" secondAttribute="bottom" id="bAA-sV-EWM"/>
@@ -275,11 +298,12 @@
                         <outlet property="emailTextField" destination="nbR-nG-Jbo" id="OY1-6l-Qo2"/>
                         <outlet property="passwordBorder" destination="Rmp-Ni-9Qe" id="336-QU-Uel"/>
                         <outlet property="passwordTextField" destination="vnb-CM-Lxc" id="ct8-UI-zyj"/>
+                        <outlet property="pokeballImage" destination="V7U-HY-Mvu" id="3VI-Bc-FMX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4Y-JK-nBa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="452" y="152"/>
+            <point key="canvasLocation" x="450.72463768115944" y="151.63043478260872"/>
         </scene>
         <!--Sign up-->
         <scene sceneID="ach-dP-H4r">
@@ -1211,6 +1235,7 @@
         <image name="ic-person" width="24" height="24"/>
         <image name="ic-sheet" width="24" height="24"/>
         <image name="ic-visibility" width="24" height="24"/>
-        <image name="pokedex-grouped" width="240" height="245"/>
+        <image name="pokeball" width="151" height="151"/>
+        <image name="pokedex-logo-big" width="1200" height="500"/>
     </resources>
 </document>

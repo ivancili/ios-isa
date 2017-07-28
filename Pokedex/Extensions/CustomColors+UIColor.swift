@@ -15,4 +15,8 @@ extension UIColor {
         return UIColor.init(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.75)
     }
     
+    public static func gray80() -> UIColor {
+        return UIColor.init(red: 204/255, green: 204/255, blue: 204/255, alpha: 0.75)
+    }
+    
 }
