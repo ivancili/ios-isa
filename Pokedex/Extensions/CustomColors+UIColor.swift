@@ -12,7 +12,7 @@ import UIKit
 extension UIColor {
     
     public static func oceanBlue() -> UIColor {
-        return UIColor.init(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.0)
+        return UIColor.init(red: 0/255, green: 64/255, blue: 128/255, alpha: 0.75)
     }
     
 }

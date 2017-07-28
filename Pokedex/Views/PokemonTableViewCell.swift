@@ -24,6 +24,20 @@ class PokemonTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        
+        backgroundColor = UIColor.oceanBlue()
+        let animation = {
+            self.backgroundColor = UIColor.white
+        }
+        
+        UIView.animate(
+            withDuration: 0.25,
+            delay: 0.1,
+            options: .curveEaseOut,
+            animations: animation,
+            completion: nil
+        )
+        
     }
     
     func configureCell(with pokemon: PokemonModel) {

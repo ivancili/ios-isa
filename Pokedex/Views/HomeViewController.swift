@@ -13,11 +13,15 @@ import CodableAlamofire
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Alertable, Progressable {
     
-    @IBOutlet weak var tableView: UITableView! { didSet {
-        tableView.delegate = self
-        tableView.dataSource = self
+    @IBOutlet weak var tableView: UITableView! {
+        didSet {
+            tableView.delegate = self
+            tableView.dataSource = self
         }
     }
+    
+    // For animations
+    private var viewLoadedForFirstTime = true
     
     private var data: UserModel?
     private var pokemons: [PokemonModel] = []
@@ -42,13 +46,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 }
         )
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: true)
-        
         let imageLeft = UIImage(named: "ic-logout")
         let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
         navigationItem.leftBarButtonItem = leftButton
@@ -57,6 +54,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
         navigationItem.rightBarButtonItem = rightButton
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -82,6 +84,38 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
+    // MARK: - Animations -
+    func animateTable() {
+        
+        tableView.reloadData()
+        let cells = tableView.visibleCells
+        
+        for cell in cells {
+            cell.transform = CGAffineTransform.init(translationX: 0, y: tableView.bounds.size.height)
+        }
+        
+        var counter = 0
+        for cell in cells {
+            
+            let animation = {
+                cell.transform = CGAffineTransform.identity
+            }
+            
+            UIView.animate(
+                withDuration: 2,
+                delay: Double(counter)*0.05,
+                usingSpringWithDamping: 0.6,
+                initialSpringVelocity: 0,
+                options: .curveEaseOut,
+                animations: animation,
+                completion: nil
+            )
+            
+            counter += 1
+        }
+        
+    }
+    
     // MARK: - API requests -
     private func fetchListOfPokemons() {
         
@@ -105,7 +139,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 switch response.result {
                 case .success:
                     self.pokemons = response.value!
-                    self.tableView.reloadData()
+                    self.animateTable()
                     
                 case .failure:
                     
