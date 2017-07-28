@@ -86,7 +86,6 @@ class LoginViewController: UIViewController, Progressable {
         let scale = CABasicAnimation(keyPath: "transform.scale")
         scale.toValue = 2
         scale.duration = 1
-        scale.speed = 0.5
         
         pokeballImage.layer.add(scale, forKey: "scale")
     }

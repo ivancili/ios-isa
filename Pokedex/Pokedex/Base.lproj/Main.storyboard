@@ -646,7 +646,6 @@
                         <outlet property="emailTextField" destination="kzC-Ex-HQV" id="go4-EL-ccU"/>
                         <outlet property="nicknameTextField" destination="e4l-KP-4hD" id="ocZ-4T-pVA"/>
                         <outlet property="passwordTextField" destination="RxR-zJ-EDa" id="ym7-uA-vcr"/>
-                        <outlet property="scrollView" destination="aEI-3j-7I4" id="DlE-FT-ZaY"/>
                         <outlet property="signUpButtonBottomConstraint" destination="JEQ-8v-7p0" id="mZu-0b-9GG"/>
                     </connections>
                 </viewController>

@@ -17,7 +17,6 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var signUpButtonBottomConstraint: NSLayoutConstraint!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
