@@ -16,18 +16,14 @@ let NotificationPokemonValue = "NotificationPokemonValue"
 class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, Alertable, Progressable {
     
     private var data: UserModel?
-    private var photoPicker = UIImagePickerController() {
-        didSet {
-            photoPicker.delegate = self
-        }
-    }
+    private var photoPicker = UIImagePickerController()
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
     private weak var uploadNewPokemonRequest: DataRequest?
     
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var addImageButton: UIButton!
     @IBOutlet weak var saveButtonBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var nameTextField: UITextField!
@@ -40,6 +36,14 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     override func viewDidLoad() {
         super.viewDidLoad()
         hideKeyboardWhenTappedAround()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        photoPicker.delegate = self
+        addImageButton.layer.cornerRadius = (addImageButton.frame.size.width) / 2
+        addImageButton.clipsToBounds = true
     }
     
     override func viewDidAppear(_ animated: Bool) {

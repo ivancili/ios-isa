@@ -780,12 +780,15 @@
                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7nM-ue-b5p" userLabel="ImageAndAdd">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="220.66666666666666"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-person" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EcL-5Y-wTd">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-person" translatesAutoresizingMaskIntoConstraints="NO" id="EcL-5Y-wTd">
                                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="220.66666666666666"/>
                                                             </imageView>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGK-Fq-C5T">
+                                                            <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wGK-Fq-C5T">
                                                                 <rect key="frame" x="350" y="166.66666666666666" width="54" height="54"/>
-                                                                <state key="normal" image="ic-add"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <state key="normal" image="ic-add">
+                                                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                </state>
                                                                 <connections>
                                                                     <action selector="addPhotoButtonTouched:" destination="mMM-FY-bCR" eventType="touchUpInside" id="mCr-pE-bGs"/>
                                                                 </connections>
@@ -794,11 +797,11 @@
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" secondItem="wGK-Fq-C5T" secondAttribute="bottom" id="4f0-z9-gO5"/>
+                                                            <constraint firstAttribute="bottom" secondItem="EcL-5Y-wTd" secondAttribute="bottom" id="8dC-Nc-ah0"/>
+                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="leading" secondItem="7nM-ue-b5p" secondAttribute="leading" id="HsW-cd-oqq"/>
+                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="top" secondItem="7nM-ue-b5p" secondAttribute="top" id="c9i-Uz-yKM"/>
+                                                            <constraint firstAttribute="trailing" secondItem="EcL-5Y-wTd" secondAttribute="trailing" id="fD3-Tc-HR4"/>
                                                             <constraint firstAttribute="trailing" secondItem="wGK-Fq-C5T" secondAttribute="trailing" constant="10" id="hEH-zz-5zg"/>
-                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="top" secondItem="7nM-ue-b5p" secondAttribute="top" id="hT0-4J-qfK"/>
-                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="width" secondItem="7nM-ue-b5p" secondAttribute="width" id="je1-uA-sXK"/>
-                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="height" secondItem="7nM-ue-b5p" secondAttribute="height" id="tZF-Wi-ysp"/>
-                                                            <constraint firstItem="EcL-5Y-wTd" firstAttribute="leading" secondItem="7nM-ue-b5p" secondAttribute="leading" id="wwP-k6-6X2"/>
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zvW-ju-6if" userLabel="PokemonInfo">
@@ -1238,12 +1241,12 @@
                     </view>
                     <connections>
                         <outlet property="abilitiesTextField" destination="dqT-zy-nhM" id="ijj-6f-EUQ"/>
+                        <outlet property="addImageButton" destination="wGK-Fq-C5T" id="4x5-XK-vBw"/>
                         <outlet property="descriptionTextField" destination="cIm-FD-Lvb" id="2js-1k-SMP"/>
                         <outlet property="heightTextField" destination="nPX-UC-iRw" id="whm-bL-FfO"/>
-                        <outlet property="imageView" destination="EcL-5Y-wTd" id="gWX-gB-LQg"/>
+                        <outlet property="imageView" destination="EcL-5Y-wTd" id="1ij-yc-p7R"/>
                         <outlet property="nameTextField" destination="zXL-Jl-usC" id="gzq-dT-OyZ"/>
                         <outlet property="saveButtonBottomConstraint" destination="HER-6s-m3c" id="Vau-7O-3q5"/>
-                        <outlet property="scrollView" destination="zRZ-oi-qi0" id="uef-4F-xFr"/>
                         <outlet property="typeTextField" destination="hXR-hk-SnM" id="Jen-iV-KAO"/>
                         <outlet property="weightTextField" destination="3Gy-ix-QpM" id="n1f-qb-dZl"/>
                     </connections>

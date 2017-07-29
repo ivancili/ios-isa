@@ -58,12 +58,13 @@ class PokemonTableViewCell: UITableViewCell {
             
             if let resource = URL.init(string: "https://pokeapi.infinum.co/" + imageURL) {
                 
-                let processor = Compressor()
+                // let compress = Compressor()
+                // .processor(compress)
                 
                 pokemonImage.kf.setImage(
                     with: resource,
                     placeholder: UIImage.init(named: "ic-person"),
-                    options: [ .transition(.fade(0.2)), .processor(processor)],
+                    options: [],
                     progressBlock: nil,
                     completionHandler: nil
                 )
