@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import Kingfisher
 
 class PokemonTableViewCell: UITableViewCell {
     
     @IBOutlet weak var pokemonNameLabel: UILabel!
+    @IBOutlet weak var pokemonImage: UIImageView!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.contentView.layer.borderWidth = 0.75
-        self.contentView.layer.borderColor = (UIColor.lightGray).cgColor
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        contentView.layer.borderWidth = 0.25
+        contentView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        pokemonImage.layer.cornerRadius = (pokemonImage.frame.size.width)/2
+        pokemonImage.clipsToBounds = true
+        pokemonImage.contentMode = .scaleAspectFill
+        pokemonImage.layer.borderWidth = 0.25
+        pokemonImage.layer.borderColor = UIColor.lightGray.cgColor
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,7 +50,28 @@ class PokemonTableViewCell: UITableViewCell {
     }
     
     func configureCell(with pokemon: PokemonModel) {
+        
+        pokemonImage.image = nil
         pokemonNameLabel.text = pokemon.attributes.name
+        
+        if let imageURL = pokemon.attributes.imageURL {
+            
+            if let resource = URL.init(string: "https://pokeapi.infinum.co/" + imageURL) {
+                
+                let processor = Compressor()
+                
+                pokemonImage.kf.setImage(
+                    with: resource,
+                    placeholder: UIImage.init(named: "ic-person"),
+                    options: [ .transition(.fade(0.2)), .processor(processor)],
+                    progressBlock: nil,
+                    completionHandler: nil
+                )
+                
+            }
+            
+        }
+        
     }
     
 }

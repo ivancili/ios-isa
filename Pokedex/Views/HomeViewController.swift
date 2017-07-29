@@ -10,6 +10,7 @@ import UIKit
 import Foundation
 import Alamofire
 import CodableAlamofire
+import Kingfisher
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Alertable, Progressable {
     
@@ -54,6 +55,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
         navigationItem.rightBarButtonItem = rightButton
         
+        // Table row height
+        tableView.rowHeight = view.frame.size.height / 8
+        
+        // Image downloading setup
+        ImageDownloader.default.downloadTimeout = 3
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,6 +74,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     deinit {
         NotificationCenter.default.removeObserver(notificationTokenFromPokemonUpload!)
+        ImageCache.default.clearDiskCache()
+        ImageCache.default.clearMemoryCache()
     }
     
     // MARK: - Table setup -
