@@ -56,10 +56,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navigationItem.rightBarButtonItem = rightButton
         
         // Table row height
-        tableView.rowHeight = view.frame.size.height / 8
+        tableView.rowHeight = view.frame.size.height / 5
         
         // Image downloading setup
-        ImageDownloader.default.downloadTimeout = 3
+        ImageDownloader.default.downloadTimeout = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {

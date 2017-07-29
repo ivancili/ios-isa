@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, Progressable {
         pokeballImage.layer.add(rotation, forKey: "spin")
         
         let scale = CABasicAnimation(keyPath: "transform.scale")
-        scale.toValue = 2
+        scale.toValue = 1.5
         scale.duration = 1
         
         pokeballImage.layer.add(scale, forKey: "scale")
@@ -219,6 +219,15 @@ class LoginViewController: UIViewController, Progressable {
                 
         }
         
+    }
+    
+    // MARK: - Password entry visibility -
+    @IBAction func passwordVisibilityActive(_ sender: Any) {
+        passwordTextField.isSecureTextEntry = true
+    }
+    
+    @IBAction func passwordVisibilityDisabled(_ sender: Any) {
+        passwordTextField.isSecureTextEntry = false
     }
     
     // MARK: - View switching -

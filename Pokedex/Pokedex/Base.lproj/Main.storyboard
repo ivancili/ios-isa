@@ -153,10 +153,10 @@
                                                                         </constraints>
                                                                     </view>
                                                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mud-ZJ-JR3" userLabel="Password">
-                                                                        <rect key="frame" x="64" y="0.0" width="286" height="40"/>
+                                                                        <rect key="frame" x="64" y="0.0" width="270" height="40"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vnb-CM-Lxc">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="286" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="270" height="40"/>
                                                                                 <nil key="textColor"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                                 <textInputTraits key="textInputTraits" returnKeyType="done" secureTextEntry="YES" textContentType="password"/>
@@ -170,21 +170,17 @@
                                                                             <constraint firstAttribute="trailing" secondItem="vnb-CM-Lxc" secondAttribute="trailing" id="ymD-Sv-r0L"/>
                                                                         </constraints>
                                                                     </view>
-                                                                    <view contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jR8-Ek-Zq5" userLabel="Icon">
-                                                                        <rect key="frame" x="370" y="0.0" width="24" height="40"/>
-                                                                        <subviews>
-                                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-visibility" translatesAutoresizingMaskIntoConstraints="NO" id="uPA-Eh-Hsl">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="24" height="40"/>
-                                                                            </imageView>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                    <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M9Z-rs-j1Z">
+                                                                        <rect key="frame" x="354" y="-0.33333333333337123" width="40" height="40"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="bottom" secondItem="uPA-Eh-Hsl" secondAttribute="bottom" id="1kS-BN-03E"/>
-                                                                            <constraint firstItem="uPA-Eh-Hsl" firstAttribute="top" secondItem="jR8-Ek-Zq5" secondAttribute="top" id="FwJ-40-m0t"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="uPA-Eh-Hsl" secondAttribute="trailing" id="JAg-af-tDt"/>
-                                                                            <constraint firstItem="uPA-Eh-Hsl" firstAttribute="leading" secondItem="jR8-Ek-Zq5" secondAttribute="leading" id="VvY-T8-Mlu"/>
+                                                                            <constraint firstAttribute="width" secondItem="M9Z-rs-j1Z" secondAttribute="height" id="rtb-lg-DsR"/>
                                                                         </constraints>
-                                                                    </view>
+                                                                        <state key="normal" title="Button" image="ic-visibility"/>
+                                                                        <connections>
+                                                                            <action selector="passwordVisibilityActive:" destination="zIF-wG-oy8" eventType="touchUpInside" id="haQ-eG-vIM"/>
+                                                                            <action selector="passwordVisibilityDisabled:" destination="zIF-wG-oy8" eventType="touchDown" id="FX1-Sq-Cyb"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <constraints>
@@ -192,11 +188,11 @@
                                                                     <constraint firstItem="Mud-ZJ-JR3" firstAttribute="leading" secondItem="lx9-Lf-a9H" secondAttribute="trailing" constant="20" id="5J5-BI-66p"/>
                                                                     <constraint firstAttribute="bottom" secondItem="lx9-Lf-a9H" secondAttribute="bottom" id="6Mw-9K-m4A"/>
                                                                     <constraint firstAttribute="bottom" secondItem="Mud-ZJ-JR3" secondAttribute="bottom" id="Eit-jV-4Wp"/>
-                                                                    <constraint firstItem="jR8-Ek-Zq5" firstAttribute="top" secondItem="UKg-yB-ajq" secondAttribute="top" id="P04-zn-iBb"/>
-                                                                    <constraint firstAttribute="bottom" secondItem="jR8-Ek-Zq5" secondAttribute="bottom" id="R8v-Vc-2KO"/>
-                                                                    <constraint firstItem="jR8-Ek-Zq5" firstAttribute="leading" secondItem="Mud-ZJ-JR3" secondAttribute="trailing" constant="20" id="b2t-UZ-8qr"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="M9Z-rs-j1Z" secondAttribute="bottom" id="NKd-jc-DEM"/>
+                                                                    <constraint firstItem="M9Z-rs-j1Z" firstAttribute="top" secondItem="UKg-yB-ajq" secondAttribute="top" id="Ua4-zu-8bP"/>
                                                                     <constraint firstItem="lx9-Lf-a9H" firstAttribute="top" secondItem="UKg-yB-ajq" secondAttribute="top" id="c6l-NA-Ggq"/>
-                                                                    <constraint firstAttribute="trailing" secondItem="jR8-Ek-Zq5" secondAttribute="trailing" constant="20" id="rAu-ML-mJG"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="M9Z-rs-j1Z" secondAttribute="trailing" constant="20" id="l9P-Dh-HgP"/>
+                                                                    <constraint firstItem="M9Z-rs-j1Z" firstAttribute="leading" secondItem="Mud-ZJ-JR3" secondAttribute="trailing" constant="20" id="nuM-4w-R6q"/>
                                                                     <constraint firstItem="Mud-ZJ-JR3" firstAttribute="top" secondItem="UKg-yB-ajq" secondAttribute="top" id="wT2-08-jOY"/>
                                                                     <constraint firstAttribute="height" constant="40" id="z0y-Qp-ahM"/>
                                                                 </constraints>

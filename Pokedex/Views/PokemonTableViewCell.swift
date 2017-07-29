@@ -23,7 +23,7 @@ class PokemonTableViewCell: UITableViewCell {
         pokemonImage.layer.cornerRadius = (pokemonImage.frame.size.width)/2
         pokemonImage.clipsToBounds = true
         pokemonImage.contentMode = .scaleAspectFill
-        pokemonImage.layer.borderWidth = 0.25
+        pokemonImage.layer.borderWidth = 0.4
         pokemonImage.layer.borderColor = UIColor.lightGray.cgColor
     }
     
