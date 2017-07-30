@@ -56,10 +56,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navigationItem.rightBarButtonItem = rightButton
         
         // Table row height
-        tableView.rowHeight = view.frame.size.height / 5
+        tableView.rowHeight = view.frame.size.height / 10
         
         // Image downloading setup
-        ImageDownloader.default.downloadTimeout = 10
+        // ImageDownloader.default.downloadTimeout = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,6 +90,11 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         cell.configureCell(with: pokemon)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let data = data else { return }
+        PokemonDetailsViewController.switchToDetailsScreen(navigationController, data, pokemons[indexPath.row])
     }
     
     // MARK: - Animations -
