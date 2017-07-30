@@ -25,6 +25,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private var viewLoadedForFirstTime = true
     
     private var data: UserModel?
+    private var rc = UIRefreshControl()
     private var pokemons: [PokemonModel] = []
     private var notificationTokenFromPokemonUpload: NSObjectProtocol?
     private var pokemonFetchRequest: DataRequest?
@@ -33,33 +34,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         super.viewDidLoad()
         
         fetchListOfPokemons()
-        
-        notificationTokenFromPokemonUpload = NotificationCenter
-            .default
-            .addObserver(
-                forName: NotificationPokemonDidUpload,
-                object: nil,
-                queue: nil,
-                using: { [weak self] notification in
-                    guard let newPokemon = notification.userInfo?[NotificationPokemonValue] as? PokemonModel else { return }
-                    self?.pokemons.append(newPokemon)
-                    self?.tableView.reloadData()
-                }
-        )
-        
-        let imageLeft = UIImage(named: "ic-logout")
-        let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
-        navigationItem.leftBarButtonItem = leftButton
-        
-        let imageRight = UIImage(named: "ic-plus")
-        let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
-        navigationItem.rightBarButtonItem = rightButton
+        navigationBarSetup()
+        refreshControlSetup()
+        notifyOfNewPokemon()
         
         // Table row height
         tableView.rowHeight = view.frame.size.height / 10
-        
-        // Image downloading setup
-        // ImageDownloader.default.downloadTimeout = 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +56,44 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         NotificationCenter.default.removeObserver(notificationTokenFromPokemonUpload!)
         ImageCache.default.clearDiskCache()
         ImageCache.default.clearMemoryCache()
+    }
+    
+    // MARK: - New pokemon uploaded -
+    func notifyOfNewPokemon() {
+        notificationTokenFromPokemonUpload = NotificationCenter
+            .default
+            .addObserver(
+                forName: NotificationPokemonDidUpload,
+                object: nil,
+                queue: nil,
+                using: { [weak self] notification in
+                    guard let newPokemon = notification.userInfo?[NotificationPokemonValue] as? PokemonModel else { return }
+                    self?.pokemons.append(newPokemon)
+                    self?.tableView.reloadData()
+                }
+        )
+    }
+    
+    // MARK: - UIRefresh setup -
+    func refreshControlSetup() {
+        rc.addTarget(self, action: #selector(HomeViewController.tableRefresh), for: UIControlEvents.valueChanged)
+        tableView.refreshControl = rc
+    }
+    
+    @objc func tableRefresh() {
+        tableView.reloadData()
+        rc.endRefreshing()
+    }
+    
+    // MARK: - Nav bar setup -
+    func navigationBarSetup() {
+        let imageLeft = UIImage(named: "ic-logout")
+        let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
+        navigationItem.leftBarButtonItem = leftButton
+        
+        let imageRight = UIImage(named: "ic-plus")
+        let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
+        navigationItem.rightBarButtonItem = rightButton
     }
     
     // MARK: - Table setup -
