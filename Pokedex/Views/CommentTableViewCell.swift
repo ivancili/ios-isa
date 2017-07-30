@@ -17,9 +17,13 @@ class CommentTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configure(_ username: String, _ comment: String) {
-        usernameLabel.text = username
-        commentLabel.text = comment
+    func configure(_ user: UserDataModel?, _ comment: CommentModel) {
+        
+        usernameLabel.text = user?.attributes.username ?? "Unknown user"
+        
+        commentLabel.lineBreakMode = .byWordWrapping
+        commentLabel.numberOfLines = 0
+        commentLabel.text = comment.attributes.content
     }
 
 }
