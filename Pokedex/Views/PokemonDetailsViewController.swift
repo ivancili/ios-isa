@@ -43,6 +43,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        hideKeyboardWhenTappedAround()
         setupNavigationBar()
         fillTheDetailsTemplate()
         loadCommentsOverAPI()
