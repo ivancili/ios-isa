@@ -11,14 +11,20 @@ import Alamofire
 import CodableAlamofire
 import Kingfisher
 
-class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+let commentCellHeight = 75
+class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Alertable {
     
     private var user: UserModel?
     private var pokemon: PokemonModel?
-    private var comments: [String] = []
+    private var comments: [CommentModel] = []
+    private var users: [UserDataModel] = []
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
+    
+    private weak var commentsFetchRequest: DataRequest?
+    private weak var usersFetchRequest: DataRequest?
+    private weak var commentUploadRequest: DataRequest?
     
     @IBOutlet weak var bottomScrollViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var commenstTableViewHeightConstraint: NSLayoutConstraint!
@@ -31,12 +37,15 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var typeLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
-    @IBOutlet weak var newCommentLabel: UILabel!
+    @IBOutlet weak var newCommentTextField: UITextField!
     
     @IBOutlet weak var commentsTableView: UITableView! {
         didSet {
             commentsTableView.delegate = self
             commentsTableView.dataSource = self
+            commentsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            commentsTableView.allowsSelection = false
+            commentsTableView.rowHeight = CGFloat.init(commentCellHeight)
         }
     }
     
@@ -52,8 +61,8 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        // Table row height
-        commentsTableView.rowHeight = view.frame.size.height / 10
+        // Screen title
+        title = pokemon?.attributes.name.capitalized
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -76,7 +85,14 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
             .addObserver(forName: Notification.Name.UIKeyboardWillHide, object: nil, queue: OperationQueue.main) { [weak self] notification in
                 self?.bottomScrollViewConstraint.constant = 0
         }
-
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        commentsFetchRequest?.cancel()
+        usersFetchRequest?.cancel()
+        commentUploadRequest?.cancel()
     }
     
     deinit {
@@ -127,7 +143,11 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         nameLabel.text = pokemon.attributes.name
+        
+        descriptionLabel.lineBreakMode = .byWordWrapping
+        descriptionLabel.numberOfLines = 0
         descriptionLabel.text = pokemon.attributes.description
+        
         heightLabel.text = String(pokemon.attributes.height)
         abilitiesLabel.text = "Empty"
         weightLabel.text = String(pokemon.attributes.weight)
@@ -137,10 +157,149 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     // MARK: - API requests -
     func loadCommentsOverAPI() {
-        // todo
-        // animate height constraint
-        // get comments based on pokemon id
-        // get author based on used id
+        
+        guard
+            let token = user?.authToken,
+            let email = user?.email,
+            let pokemonID = pokemon?.id
+            else { return }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token token=\(token), email=\(email)",
+            "Content-Type": "application/json"
+        ]
+        
+        commentsFetchRequest = Alamofire
+            .request(
+                "https://pokeapi.infinum.co/api/v1/pokemons/\(pokemonID)/comments",
+                method: .get,
+                headers: headers)
+            .validate()
+            .responseDecodableObject(keyPath: "data") { (response: DataResponse<[CommentModel]>) in
+                
+                switch response.result {
+                case .success:
+                    self.comments = response.value!
+                    self.loadUserDatabaseOverAPI()
+                    
+                case .failure:
+                    
+                    let title = "Error while loading comments"
+                    let message = "Check your connection"
+                    self.showAlertWithOK(with: title, message: message, { (_) in
+                        self.goToHomeScreen()
+                    })
+                    
+                }
+                
+        }
+        
+    }
+    
+    func loadUserDatabaseOverAPI() {
+        
+        guard
+            let token = user?.authToken,
+            let email = user?.email
+            else { return }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token token=\(token), email=\(email)",
+            "Content-Type": "application/json"
+        ]
+        
+        for comment in comments {
+            
+            let authorID = comment.relationships.author.data.id
+            
+            Alamofire
+                .request(
+                    "https://pokeapi.infinum.co/api/v1/users/\(authorID)",
+                    method: .get,
+                    headers: headers)
+                .validate()
+                .responseDecodableObject(keyPath: "data") { (response: DataResponse<UserDataModel>) in
+                    
+                    switch response.result {
+                    case .success(let user):
+                        self.commentsTableView.reloadData()
+                        self.users.append(user)
+                        
+                    case .failure:
+                        
+                        let title = "Error while loading comments."
+                        self.showAlertWithOK(with: title, message: nil, { (_) in
+                            self.goToHomeScreen()
+                        })
+                        
+                    }
+                    
+            }
+            
+        }
+        
+        self.animateCommentsTable()
+        
+    }
+    
+    @IBAction func addCommentButtonTouched(_ sender: Any) {
+        
+        guard
+            let token = user?.authToken,
+            let email = user?.email,
+            let comment = newCommentTextField.text,
+            let pokemonID = pokemon?.id,
+            !comment.isEmpty
+            else { return }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token token=\(token), email=\(email)",
+            "Content-Type": "application/json"
+        ]
+        
+        Alamofire.upload(
+            multipartFormData: { (multipartFormData) in
+                
+                multipartFormData.append(
+                    comment.data(using: .utf8)!,
+                    withName: "data[attributes][content]"
+                )
+                
+        },
+            to: "https://pokeapi.infinum.co/api/v1/pokemons/\(pokemonID)/comments",
+            method: .post,
+            headers: headers) { [weak self] result in
+                
+                switch result {
+                case .success(let uploadRequest, _, _):
+                    self?.processUploadRequest(uploadRequest)
+                    
+                case .failure(let error):
+                    print(error)
+                }
+                
+        }
+        
+        
+    }
+    
+    private func processUploadRequest(_ uploadRequest: UploadRequest) {
+        
+        commentUploadRequest = uploadRequest.responseDecodableObject(keyPath: "data") { (response: DataResponse<CommentModel>) in
+            
+            switch response.result {
+            case .success:
+                self.comments.append(response.value!)
+                self.newCommentTextField.text = ""
+                self.animateCommentsTable()
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+            
+        }
+        
     }
     
     // MARK: - Table view setup -
@@ -152,15 +311,29 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         let cell: CommentTableViewCell = tableView.dequeueReusableCell(withIdentifier: "CommentTableViewCell", for: indexPath) as! CommentTableViewCell
         
         let comment = comments[indexPath.row]
-        let username = ""
+        let user = linkUserWithComment(comment)
         
-        cell.configure(username, comment)
+        cell.configure(user, comment)
         
         return cell
     }
     
-    // MARK: - Comment handling -
-    @IBAction func addCommentButtonTouched(_ sender: Any) {
+    // MARK: - Linking user and comment -
+    func linkUserWithComment(_ comment: CommentModel) -> UserDataModel? {
+        for user in users {
+            if user.id == comment.relationships.author.data.id {
+                return user
+            }
+        }
+        return nil
+    }
+    
+    // MARK: - Comments table animation -
+    func animateCommentsTable() {
+        UIView.animate(withDuration: 1, animations: {
+            self.commentsTableView.reloadData()
+            self.commenstTableViewHeightConstraint.constant = CGFloat.init(self.comments.count * commentCellHeight)
+        })
     }
     
     // MARK: - View switching -
