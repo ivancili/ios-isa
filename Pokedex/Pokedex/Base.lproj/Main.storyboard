@@ -1267,10 +1267,10 @@
                                 <rect key="frame" x="0.0" y="20" width="414" height="716"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4NB-aA-hrn">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="984"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="986"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="mdz-ne-gBr" userLabel="StaticElements">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="874"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="876"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic-person" translatesAutoresizingMaskIntoConstraints="NO" id="mY3-Gn-yoN">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="245.33333333333331"/>
@@ -1480,57 +1480,77 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="ojM-GW-zYe" userLabel="LikeAndDislike">
-                                                        <rect key="frame" x="0.0" y="668" width="414" height="126"/>
+                                                        <rect key="frame" x="0.0" y="668" width="414" height="128"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7YX-UG-cBw" userLabel="Spacer">
-                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="126"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="20" height="128"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="GjK-t7-1HX"/>
                                                                 </constraints>
                                                             </view>
                                                             <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="KZe-sf-ufT" userLabel="LikeAndDislike">
-                                                                <rect key="frame" x="40" y="0.0" width="334" height="126"/>
+                                                                <rect key="frame" x="40" y="0.0" width="334" height="128"/>
                                                                 <subviews>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ztt-hH-kB5" userLabel="Like">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="162" height="126"/>
+                                                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jd1-25-bGa" userLabel="Like">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="162" height="128"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wax-E8-7qb">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="58"/>
+                                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZV-3c-Tmr">
+                                                                                <rect key="frame" x="0.0" y="10" width="162" height="94"/>
                                                                                 <state key="normal" image="ic-like"/>
                                                                                 <connections>
-                                                                                    <action selector="likeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="69u-bj-4xO"/>
+                                                                                    <action selector="likeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="1B6-db-Pv5"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Like" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23X-cp-0yf" userLabel="Like">
-                                                                                <rect key="frame" x="0.0" y="68" width="162" height="58"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Like" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5W-nI-X2b" userLabel="Like">
+                                                                                <rect key="frame" x="0.0" y="104" width="162" height="24"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                    </stackView>
-                                                                    <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" axis="vertical" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zyy-1F-Qat" userLabel="Dislike">
-                                                                        <rect key="frame" x="172" y="0.0" width="162" height="126"/>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="zZV-3c-Tmr" firstAttribute="leading" secondItem="jd1-25-bGa" secondAttribute="leading" id="A3v-mC-Afg"/>
+                                                                            <constraint firstItem="zZV-3c-Tmr" firstAttribute="top" secondItem="jd1-25-bGa" secondAttribute="top" constant="10" id="DMU-2l-BrC"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="U5W-nI-X2b" secondAttribute="trailing" id="P6q-N5-HMh"/>
+                                                                            <constraint firstItem="U5W-nI-X2b" firstAttribute="leading" secondItem="jd1-25-bGa" secondAttribute="leading" id="UCf-Ku-Eio"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="U5W-nI-X2b" secondAttribute="bottom" id="VGz-0q-mtL"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="zZV-3c-Tmr" secondAttribute="trailing" id="VNM-2o-5RO"/>
+                                                                            <constraint firstItem="U5W-nI-X2b" firstAttribute="top" secondItem="zZV-3c-Tmr" secondAttribute="bottom" id="qaK-TB-gKn"/>
+                                                                        </constraints>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BPn-mT-tfm" userLabel="Dislike">
+                                                                        <rect key="frame" x="172" y="0.0" width="162" height="128"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bF1-lv-OnF">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="58"/>
+                                                                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ory-Ga-2ox">
+                                                                                <rect key="frame" x="0.0" y="10" width="162" height="94"/>
                                                                                 <state key="normal" image="ic-dislike"/>
                                                                                 <connections>
-                                                                                    <action selector="dislikeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="myR-qZ-3Xz"/>
+                                                                                    <action selector="dislikeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="8zH-ck-W9E"/>
                                                                                 </connections>
                                                                             </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dislike" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEj-yP-7WG" userLabel="Dislike">
-                                                                                <rect key="frame" x="0.0" y="68" width="162" height="58"/>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dislike" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D0l-fW-ih2" userLabel="Dislike">
+                                                                                <rect key="frame" x="0.0" y="104" width="162" height="24"/>
                                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                                                <color key="textColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                    </stackView>
+                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="D0l-fW-ih2" firstAttribute="top" secondItem="Ory-Ga-2ox" secondAttribute="bottom" id="Eak-i9-BGJ"/>
+                                                                            <constraint firstItem="D0l-fW-ih2" firstAttribute="leading" secondItem="BPn-mT-tfm" secondAttribute="leading" id="JUw-n9-vAA"/>
+                                                                            <constraint firstItem="Ory-Ga-2ox" firstAttribute="leading" secondItem="BPn-mT-tfm" secondAttribute="leading" id="bqV-f4-qTd"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="Ory-Ga-2ox" secondAttribute="trailing" id="lbH-og-DQa"/>
+                                                                            <constraint firstAttribute="bottom" secondItem="D0l-fW-ih2" secondAttribute="bottom" id="nys-ap-pES"/>
+                                                                            <constraint firstAttribute="trailing" secondItem="D0l-fW-ih2" secondAttribute="trailing" id="wyd-52-DhU"/>
+                                                                            <constraint firstItem="Ory-Ga-2ox" firstAttribute="top" secondItem="BPn-mT-tfm" secondAttribute="top" constant="10" id="ziL-2O-VBD"/>
+                                                                        </constraints>
+                                                                    </view>
                                                                 </subviews>
                                                             </stackView>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTt-MZ-i1I" userLabel="Spacer">
-                                                                <rect key="frame" x="394" y="0.0" width="20" height="126"/>
+                                                                <rect key="frame" x="394" y="0.0" width="20" height="128"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" constant="20" id="h50-3z-EQw"/>
                                                                 </constraints>
@@ -1538,7 +1558,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IBr-m9-ccv" userLabel="Comments">
-                                                        <rect key="frame" x="0.0" y="824" width="414" height="50"/>
+                                                        <rect key="frame" x="0.0" y="826" width="414" height="50"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eLH-uH-izD" userLabel="Spacer">
                                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="50"/>
@@ -1574,7 +1594,7 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LTn-nv-LHL" userLabel="Comments">
-                                                <rect key="frame" x="0.0" y="894" width="414" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="896" width="414" height="0.0"/>
                                                 <subviews>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="eMR-u5-XzM" userLabel="Comments">
                                                         <rect key="frame" x="40" y="0.0" width="334" height="0.0"/>
@@ -1626,7 +1646,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A5B-Gj-gaL" userLabel="EnterComment">
-                                                <rect key="frame" x="0.0" y="914" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="916" width="414" height="50"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dzk-Wa-nkc" userLabel="EnterCommentBar">
                                                         <rect key="frame" x="40" y="0.0" width="334" height="50"/>
@@ -1721,10 +1741,12 @@
                         <outlet property="commenstTableViewHeightConstraint" destination="FEi-39-gfp" id="qhV-eL-XiK"/>
                         <outlet property="commentsTableView" destination="eMR-u5-XzM" id="T4M-cW-cJ9"/>
                         <outlet property="descriptionLabel" destination="4Rq-0I-wKi" id="sqN-yD-qRh"/>
-                        <outlet property="dislikeButton" destination="bF1-lv-OnF" id="sSR-lI-Tr6"/>
+                        <outlet property="dislikeLabel" destination="D0l-fW-ih2" id="prK-rJ-MP9"/>
+                        <outlet property="dislikeView" destination="BPn-mT-tfm" id="9SX-DT-fLC"/>
                         <outlet property="genderLabel" destination="CV3-5L-BKm" id="Q9j-lj-lJK"/>
                         <outlet property="heightLabel" destination="Jdr-r0-eyq" id="pcE-Cp-7Vb"/>
-                        <outlet property="likeButton" destination="Wax-E8-7qb" id="bej-xf-Ug2"/>
+                        <outlet property="likeLabel" destination="U5W-nI-X2b" id="vQL-a8-7Ec"/>
+                        <outlet property="likeView" destination="jd1-25-bGa" id="bVS-AC-bYD"/>
                         <outlet property="nameLabel" destination="ZuR-A7-Ouc" id="3Cl-8N-XUW"/>
                         <outlet property="newCommentTextField" destination="V4z-Mb-VSd" id="Pka-Zj-GYa"/>
                         <outlet property="pokemonImage" destination="mY3-Gn-yoN" id="c3Z-lG-c8n"/>

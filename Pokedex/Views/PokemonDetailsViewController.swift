@@ -21,8 +21,10 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     private var users: [UserDataModel] = []
     
     private var clickedLikeOrDislike = false
-    @IBOutlet weak var likeButton: UIButton!
-    @IBOutlet weak var dislikeButton: UIButton!
+    @IBOutlet weak var likeView: UIView!
+    @IBOutlet weak var likeLabel: UILabel!
+    @IBOutlet weak var dislikeView: UIView!
+    @IBOutlet weak var dislikeLabel: UILabel!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
@@ -90,7 +92,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
-    // MARK: - Keyboard handling setup -
+    // MARK: - Setup methods -
     func keyboardHandlingSetup() {
         
         notificationTokenKeyboardWillShow = NotificationCenter
@@ -113,7 +115,6 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         
     }
     
-    // MARK: - Navigation bar setup -
     func setupNavigationBar() {
         
         // left button
@@ -135,7 +136,6 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         navigationItem.rightBarButtonItems = rightButtons
     }
     
-    // MARK: - Pokemon details presentation -
     func fillTheDetailsTemplate() {
         
         guard let pokemon = pokemon else {
@@ -257,25 +257,25 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     @IBAction func likeButtonTouched(_ sender: Any) {
         if clickedLikeOrDislike { return }
-        likeOrDislikeAPIRequest(sender, "upvote")
+        likeOrDislikeAPIRequest("upvote")
     }
     
     @IBAction func dislikeButtonTouched(_ sender: Any) {
         if clickedLikeOrDislike { return }
-        likeOrDislikeAPIRequest(sender, "downvote")
+        likeOrDislikeAPIRequest("downvote")
     }
     
-    func likeOrDislikeAPIRequest(_ sender: Any,_ action: String) {
+    func likeOrDislikeAPIRequest(_ action: String) {
         
         clickedLikeOrDislike = true
-        likeButton.isEnabled = false
-        dislikeButton.isEnabled = false
+        
+        animateLikeOrDislike(action)
         
         guard
             let token = user?.authToken,
             let email = user?.email,
             let pokemonID = pokemon?.id
-        else { return }
+            else { return }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\(token), email=\(email)",
@@ -301,11 +301,8 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
                     let message = "Couldnt " + action + " a Pokemon"
                     self.showAlertWithOK(with: title, message: message, nil)
                     
-                    self.clickedLikeOrDislike = false
-                    self.likeButton.isEnabled = true
-                    self.dislikeButton.isEnabled = true
-                    
                 }
+                
         }
         
     }
@@ -386,7 +383,6 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         return cell
     }
     
-    // MARK: - Linking user and comment -
     func linkUserWithComment(_ comment: CommentModel) -> UserDataModel? {
         for user in users {
             if user.id == comment.relationships.author.data.id {
@@ -396,12 +392,42 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         return nil
     }
     
-    // MARK: - Comments table animation -
+    // MARK: - Animations -
     func animateCommentsTable() {
         UIView.animate(withDuration: 1, animations: {
             self.commentsTableView.reloadData()
             self.commenstTableViewHeightConstraint.constant = CGFloat.init(self.comments.count * commentCellHeight)
         })
+    }
+    
+    func animateLikeOrDislike(_ action: String) {
+        
+        let viewToAnimate: UIView = (action == "upvote") ? likeView : dislikeView
+        let labelToAnimate: UILabel = (action == "upvote") ? likeLabel : dislikeLabel
+        
+        let animation: () -> Void = {
+            viewToAnimate.transform = CGAffineTransform.init(scaleX: 1.3, y: 1)
+        }
+        let completion: ((Bool) -> Void)? = { success in
+            if success {
+                UIView.animate(withDuration: 0.2, animations: {
+                    viewToAnimate.transform = CGAffineTransform.identity
+                    viewToAnimate.backgroundColor = UIColor.oceanBlue().withAlphaComponent(0.9)
+                    labelToAnimate.textColor = UIColor.white
+                })
+            }
+        }
+        
+        UIView.animate(
+            withDuration: 0.5,
+            delay: 0,
+            usingSpringWithDamping: 0.2,
+            initialSpringVelocity: 10,
+            options: .curveEaseInOut,
+            animations: animation,
+            completion: completion
+        )
+        
     }
     
     // MARK: - View switching -
