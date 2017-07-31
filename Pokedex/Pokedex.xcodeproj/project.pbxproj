@@ -108,9 +108,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		5C5604DB1F2FA5C300399C97 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				5CC48E3A1F23915500335810 /* PokemonTableViewCell.swift */,
+				5C435D1B1F2D151200009E72 /* CommentTableViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		5C69C7EC1F10EC8100B470E6 = {
 			isa = PBXGroup;
 			children = (
+				5C5604DB1F2FA5C300399C97 /* Cells */,
 				5C1CB55C1F2149000023543E /* Helper */,
 				5C6BFBFC1F20FCEB0056F190 /* Protocols */,
 				5C1D6E931F1FFDDB002325CF /* Extensions */,
@@ -157,10 +167,8 @@
 				5C7E84EA1F196912000D8CEB /* RegisterViewController.swift */,
 				5C7E84EC1F19867F000D8CEB /* HomeViewController.swift */,
 				5C69C80A1F10F10200B470E6 /* LoginViewController.swift */,
-				5CC48E3A1F23915500335810 /* PokemonTableViewCell.swift */,
 				5C2DA6F61F2510A300EF399A /* AddNewPokemonViewController.swift */,
 				5C435D191F2CF2DE00009E72 /* PokemonDetailsViewController.swift */,
-				5C435D1B1F2D151200009E72 /* CommentTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
