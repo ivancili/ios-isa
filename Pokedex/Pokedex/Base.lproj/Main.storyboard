@@ -1497,6 +1497,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wax-E8-7qb">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="58"/>
                                                                                 <state key="normal" image="ic-like"/>
+                                                                                <connections>
+                                                                                    <action selector="likeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="69u-bj-4xO"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Like" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23X-cp-0yf" userLabel="Like">
                                                                                 <rect key="frame" x="0.0" y="68" width="162" height="58"/>
@@ -1512,6 +1515,9 @@
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bF1-lv-OnF">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="58"/>
                                                                                 <state key="normal" image="ic-dislike"/>
+                                                                                <connections>
+                                                                                    <action selector="dislikeButtonTouched:" destination="yS7-rb-BCb" eventType="touchUpInside" id="myR-qZ-3Xz"/>
+                                                                                </connections>
                                                                             </button>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dislike" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WEj-yP-7WG" userLabel="Dislike">
                                                                                 <rect key="frame" x="0.0" y="68" width="162" height="58"/>
@@ -1715,8 +1721,10 @@
                         <outlet property="commenstTableViewHeightConstraint" destination="FEi-39-gfp" id="qhV-eL-XiK"/>
                         <outlet property="commentsTableView" destination="eMR-u5-XzM" id="T4M-cW-cJ9"/>
                         <outlet property="descriptionLabel" destination="4Rq-0I-wKi" id="sqN-yD-qRh"/>
+                        <outlet property="dislikeButton" destination="bF1-lv-OnF" id="sSR-lI-Tr6"/>
                         <outlet property="genderLabel" destination="CV3-5L-BKm" id="Q9j-lj-lJK"/>
                         <outlet property="heightLabel" destination="Jdr-r0-eyq" id="pcE-Cp-7Vb"/>
+                        <outlet property="likeButton" destination="Wax-E8-7qb" id="bej-xf-Ug2"/>
                         <outlet property="nameLabel" destination="ZuR-A7-Ouc" id="3Cl-8N-XUW"/>
                         <outlet property="newCommentTextField" destination="V4z-Mb-VSd" id="Pka-Zj-GYa"/>
                         <outlet property="pokemonImage" destination="mY3-Gn-yoN" id="c3Z-lG-c8n"/>
@@ -1726,7 +1734,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKL-BP-EZg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3398.5507246376815" y="151.63043478260872"/>
+            <point key="canvasLocation" x="3488" y="152"/>
         </scene>
     </scenes>
     <resources>

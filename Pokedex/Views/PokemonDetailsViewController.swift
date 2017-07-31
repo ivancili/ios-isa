@@ -20,6 +20,10 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     private var comments: [CommentModel] = []
     private var users: [UserDataModel] = []
     
+    private var clickedLikeOrDislike = false
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var dislikeButton: UIButton!
+    
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
     private weak var notificationTokenKeyboardWillHide: NSObjectProtocol?
     
@@ -248,6 +252,61 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         }
         
         self.animateCommentsTable()
+        
+    }
+    
+    @IBAction func likeButtonTouched(_ sender: Any) {
+        if clickedLikeOrDislike { return }
+        likeOrDislikeAPIRequest(sender, "upvote")
+    }
+    
+    @IBAction func dislikeButtonTouched(_ sender: Any) {
+        if clickedLikeOrDislike { return }
+        likeOrDislikeAPIRequest(sender, "downvote")
+    }
+    
+    func likeOrDislikeAPIRequest(_ sender: Any,_ action: String) {
+        
+        clickedLikeOrDislike = true
+        likeButton.isEnabled = false
+        dislikeButton.isEnabled = false
+        
+        guard
+            let token = user?.authToken,
+            let email = user?.email,
+            let pokemonID = pokemon?.id
+        else { return }
+        
+        let headers: HTTPHeaders = [
+            "Authorization": "Token token=\(token), email=\(email)",
+            "Content-Type": "application/json"
+        ]
+        
+        let url = "https://pokeapi.infinum.co/api/v1/pokemons/\(pokemonID)/" + action
+        
+        Alamofire
+            .request(
+                url,
+                method: .post,
+                headers: headers)
+            .validate()
+            .responseJSON { (response) in
+                
+                switch response.result {
+                case .success:
+                    break
+                    
+                case .failure:
+                    let title = "Error"
+                    let message = "Couldnt " + action + " a Pokemon"
+                    self.showAlertWithOK(with: title, message: message, nil)
+                    
+                    self.clickedLikeOrDislike = false
+                    self.likeButton.isEnabled = true
+                    self.dislikeButton.isEnabled = true
+                    
+                }
+        }
         
     }
     
