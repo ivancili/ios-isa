@@ -22,11 +22,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     // For animations
-    private var viewLoadedForFirstTime = true
-    
-    private var data: UserModel?
     private var rc = UIRefreshControl()
+    private var customRefreshView = UIImageView()
+    
+    private var user: UserModel?
     private var pokemons: [PokemonModel] = []
+    
     private var notificationTokenFromPokemonUpload: NSObjectProtocol?
     private var pokemonFetchRequest: DataRequest?
     
@@ -76,13 +77,48 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - UIRefresh setup -
     func refreshControlSetup() {
-        rc.addTarget(self, action: #selector(HomeViewController.tableRefresh), for: UIControlEvents.valueChanged)
         tableView.refreshControl = rc
+        
+        rc.addTarget(self, action: #selector(HomeViewController.startTableRefresh), for: UIControlEvents.valueChanged)
+        rc.backgroundColor = UIColor.oceanBlue().withAlphaComponent(1.0)
+        rc.tintColor = UIColor.clear
+        rc.addSubview(customRefreshView)
+        rc.bounds.size.width = view.bounds.width
+        
+        customRefreshView.frame = rc.bounds
+        customRefreshView.contentMode = .scaleAspectFit
+        customRefreshView.backgroundColor = UIColor.clear
+        customRefreshView.image = UIImage.init(named: "pokeball")
     }
     
-    @objc func tableRefresh() {
+    @objc func startTableRefresh() {
+        
         tableView.reloadData()
-        rc.endRefreshing()
+        
+        customRefreshView.frame.size.height = 60
+        
+        let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
+        rotation.toValue = Double.pi * 2
+        rotation.duration = 1
+        rotation.speed = 10
+        rotation.isCumulative = true
+        rotation.repeatCount = .greatestFiniteMagnitude
+        
+        customRefreshView.layer.add(rotation, forKey: "spin")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            
+            self.customRefreshView.layer.removeAnimation(forKey: "spin")
+            
+            UIView.animate(
+                withDuration: 0.05,
+                animations: { self.customRefreshView.frame.size.height = 0 },
+                completion: { (success) in
+                    if success { self.rc.endRefreshing() }
+            })
+            
+        }
+        
     }
     
     // MARK: - Nav bar setup -
@@ -111,8 +147,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let data = data else { return }
-        PokemonDetailsViewController.switchToDetailsScreen(navigationController, data, pokemons[indexPath.row])
+        guard let user = user else { return }
+        PokemonDetailsViewController.switchToDetailsScreen(navigationController, user, pokemons[indexPath.row])
     }
     
     // MARK: - Animations -
@@ -151,8 +187,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func fetchListOfPokemons() {
         
         guard
-            let token = data?.authToken,
-            let email = data?.email
+            let token = user?.authToken,
+            let email = user?.email
             else {
                 return
         }
@@ -193,8 +229,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     @objc private func logoutUser() {
         
         guard
-            let token = data?.authToken,
-            let email = data?.email
+            let token = user?.authToken,
+            let email = user?.email
             else {
                 return
         }
@@ -218,8 +254,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                 case .failure:
                     
-                    let title = "Something went wrong"
-                    let message = "Please try again"
+                    let title = "Logout failed"
+                    let message = "Please check your connection"
                     self.showAlertWithOK(with: title, message: message, nil)
                     
                 }
@@ -229,17 +265,17 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - View switching -
     @objc private func goToNewPokemonScreen() {
-        AddNewPokemonViewController.switchToAddNewPokemonScreen(self.navigationController, dataToInject: data!)
+        AddNewPokemonViewController.switchToAddNewPokemonScreen(self.navigationController, dataToInject: user!)
     }
     
-    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject data: UserModel) -> Void {
-        navigationController?.setViewControllers([HomeViewController.instantiate(dataToInject: data)], animated: true)
+    public static func switchToHomeScreen(_ navigationController: UINavigationController?, dataToInject user: UserModel) -> Void {
+        navigationController?.setViewControllers([HomeViewController.instantiate(dataToInject: user)], animated: true)
     }
     
-    private static func instantiate(dataToInject data: UserModel) -> HomeViewController {
+    private static func instantiate(dataToInject user: UserModel) -> HomeViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-        vc.data = data
+        vc.user = user
         return vc
     }
     
