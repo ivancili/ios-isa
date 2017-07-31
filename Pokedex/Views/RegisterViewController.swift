@@ -37,6 +37,23 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keyboardHandlingSetup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
+        signupRequest?.cancel()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
+    }
+    
+    // MARK: - Keyboard handling setup -
+    func keyboardHandlingSetup() {
         
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
@@ -57,17 +74,6 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        UIApplication.shared.statusBarStyle = .default
-        signupRequest?.cancel()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
-    }
     
     // MARK: - Sign up API call -
     @IBAction func signupButtonTouched(_ sender: Any) {

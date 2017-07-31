@@ -69,6 +69,25 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keyboardHandlingSetup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
+        commentsFetchRequest?.cancel()
+        usersFetchRequest?.cancel()
+        commentUploadRequest?.cancel()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
+    }
+    
+    // MARK: - Keyboard handling setup -
+    func keyboardHandlingSetup() {
         
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
@@ -88,20 +107,6 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
                 self?.bottomScrollViewConstraint.constant = 0
         }
         
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        UIApplication.shared.statusBarStyle = .default
-        commentsFetchRequest?.cancel()
-        usersFetchRequest?.cancel()
-        commentUploadRequest?.cancel()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
     // MARK: - Navigation bar setup -

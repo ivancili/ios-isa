@@ -49,6 +49,23 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keyboardHandlingSetup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
+        uploadNewPokemonRequest?.cancel()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
+    }
+    
+    // MARK: - Keyboard handling setup -
+    func keyboardHandlingSetup() {
         
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
@@ -68,18 +85,6 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
                 self?.saveButtonBottomConstraint.constant = 0
         }
         
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        UIApplication.shared.statusBarStyle = .default
-        uploadNewPokemonRequest?.cancel()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
     }
     
     // MARK: - View switching -
