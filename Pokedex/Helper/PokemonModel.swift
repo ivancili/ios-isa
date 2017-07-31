@@ -21,12 +21,12 @@ struct PokemonModel: Codable {
         let order: Int?
         let height: Double
         let weight: Double
-        let createdAt: String?
-        let updatedAt: String?
+        let createdAt: String
+        let updatedAt: String
         let imageURL: String?
         let description: String?
-        let totalVoteCount: Int?
-        let votedOn: Int?
+        let totalVoteCount: Int
+        let votedOn: Int
         let gender: String
         
         enum CodingKeys: String, CodingKey {
