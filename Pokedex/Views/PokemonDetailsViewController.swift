@@ -12,6 +12,7 @@ import CodableAlamofire
 import Kingfisher
 
 let commentCellHeight = 75
+
 class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, Alertable {
     
     private var user: UserModel?
@@ -61,6 +62,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        UIApplication.shared.statusBarStyle = .lightContent
         // Screen title
         title = pokemon?.attributes.name.capitalized
     }
@@ -90,6 +92,8 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
         commentsFetchRequest?.cancel()
         usersFetchRequest?.cancel()
         commentUploadRequest?.cancel()

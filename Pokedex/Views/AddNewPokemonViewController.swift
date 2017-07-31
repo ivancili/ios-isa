@@ -42,6 +42,7 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
         super.viewWillAppear(animated)
         
         photoPicker.delegate = self
+        UIApplication.shared.statusBarStyle = .lightContent
         addImageButton.layer.cornerRadius = (addImageButton.frame.size.width) / 2
         addImageButton.clipsToBounds = true
     }
@@ -71,6 +72,8 @@ class AddNewPokemonViewController: UIViewController, UIImagePickerControllerDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
         uploadNewPokemonRequest?.cancel()
     }
     
