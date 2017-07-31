@@ -312,7 +312,7 @@
                                 <rect key="frame" x="0.0" y="70" width="414" height="596"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="azq-ml-Vc6" userLabel="SubView">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="596"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="234"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="9h7-Rf-j0L" userLabel="TextFields">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="234"/>
@@ -594,6 +594,7 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="9h7-Rf-j0L" secondAttribute="bottom" id="KuF-9E-Gr7"/>
                                             <constraint firstAttribute="trailing" secondItem="9h7-Rf-j0L" secondAttribute="trailing" id="M1Y-Pn-FZl"/>
                                             <constraint firstItem="9h7-Rf-j0L" firstAttribute="leading" secondItem="azq-ml-Vc6" secondAttribute="leading" id="PgW-4A-Z59"/>
                                             <constraint firstItem="9h7-Rf-j0L" firstAttribute="top" secondItem="azq-ml-Vc6" secondAttribute="top" id="bBX-SG-Cdx"/>
@@ -602,7 +603,6 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="azq-ml-Vc6" firstAttribute="width" secondItem="aEI-3j-7I4" secondAttribute="width" id="Gqj-Eq-dTU"/>
-                                    <constraint firstItem="azq-ml-Vc6" firstAttribute="height" secondItem="aEI-3j-7I4" secondAttribute="height" id="Kcj-tV-haa"/>
                                     <constraint firstAttribute="bottom" secondItem="azq-ml-Vc6" secondAttribute="bottom" id="Ol2-Z8-aWm"/>
                                     <constraint firstAttribute="trailing" secondItem="azq-ml-Vc6" secondAttribute="trailing" id="Z6U-zK-vgI"/>
                                     <constraint firstItem="azq-ml-Vc6" firstAttribute="top" secondItem="aEI-3j-7I4" secondAttribute="top" id="mv4-U8-UHv"/>
