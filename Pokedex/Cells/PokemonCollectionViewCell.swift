@@ -45,7 +45,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         upvoteCountLabel.text = ""
         
         let name = pokemon.attributes.name.trimmingCharacters(in: .whitespacesAndNewlines)
-        let date = pokemon.attributes.createdAt.lowercased().split(separator: "t").first?.description
+        let date = Date.customDateToString(Date.parsePokemonDate(pokemon.attributes.createdAt))
         let upvoteCount = pokemon.attributes.votedOn
 
         var countLabelColor: UIColor = upvoteCountLabel.textColor
@@ -58,7 +58,7 @@ class PokemonCollectionViewCell: UICollectionViewCell {
         
         upvoteCountLabel.text = String(upvoteCount)
         upvoteCountLabel.textColor = countLabelColor
-        nameAndDateLabel.text = name + "\n" + "Created on: " + date!
+        nameAndDateLabel.text = name + "\n" + "Created: " + date
 
         if let imageURL = pokemon.attributes.imageURL {
             
