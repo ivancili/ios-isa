@@ -20,6 +20,13 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     private var comments: [CommentModel] = []
     private var users: [UserDataModel] = []
     
+    private var infoViewShown = false
+    @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var createdOnLabel: UILabel!
+    @IBOutlet weak var updatedOnLabel: UILabel!
+    @IBOutlet weak var imageURLLabel: UILabel!
+    @IBOutlet weak var visualEffectView: UIVisualEffectView!
+    
     private var clickedLikeOrDislike = false
     @IBOutlet weak var likeView: UIView!
     @IBOutlet weak var likeLabel: UILabel!
@@ -131,7 +138,9 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         rightButtons.append(UIBarButtonItem(image: firstImageRight, style: .done, target: self, action: nil))
         
         let secondImageRight = UIImage(named: "ic-info")
-        rightButtons.append(UIBarButtonItem(image: secondImageRight, style: .done, target: self, action: nil))
+        let ightButtonSelector: Selector? = #selector(PokemonDetailsViewController.infoButtonTouched)
+        rightButtons.append(
+            UIBarButtonItem(image: secondImageRight, style: .done, target: self, action: ightButtonSelector))
         
         navigationItem.rightBarButtonItems = rightButtons
     }
@@ -166,6 +175,11 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         weightLabel.text = String(pokemon.attributes.weight)
         typeLabel.text = "Empty"
         genderLabel.text = pokemon.attributes.gender.uppercased()
+        
+        infoView.layer.cornerRadius = 20
+        createdOnLabel.text = pokemon.attributes.createdAt
+        updatedOnLabel.text = pokemon.attributes.updatedAt
+        imageURLLabel.text = pokemon.attributes.imageURL ?? "not available"
     }
     
     // MARK: - API requests -
@@ -427,6 +441,33 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
             animations: animation,
             completion: completion
         )
+        
+    }
+    
+    @objc func infoButtonTouched() {
+        
+        if infoViewShown {
+            
+            self.infoViewShown = false
+            
+            UIView.animate(withDuration: 1, animations: {
+                self.visualEffectView.isHidden = true
+                self.infoView.isHidden = true
+                
+            })
+            
+        } else {
+            
+            infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.infoViewShown = true
+            
+            UIView.animate(withDuration: 1, animations: {
+                self.visualEffectView.isHidden = false
+                self.infoView.isHidden = false
+                self.infoView.transform = CGAffineTransform.identity
+            })
+            
+        }
         
     }
     
