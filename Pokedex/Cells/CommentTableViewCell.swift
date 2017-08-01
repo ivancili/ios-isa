@@ -19,7 +19,7 @@ class CommentTableViewCell: UITableViewCell {
     
     func configure(_ user: UserDataModel?, _ comment: CommentModel) {
         
-        usernameLabel.text = user?.attributes.username ?? "Unknown user"
+        usernameLabel.text = user?.attributes.username ?? "username"
         
         commentLabel.lineBreakMode = .byWordWrapping
         commentLabel.numberOfLines = 0
