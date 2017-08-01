@@ -17,6 +17,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
+    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signUpButtonBottomConstraint: NSLayoutConstraint!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
@@ -92,10 +93,16 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
             else {
                 hideProgressHud()
                 
-                let title = "Error during registration"
-                let message = "Please provide email, nickname, password and password confirmation."
-                showAlertWithOK(with: title, message: message, nil)
+                let initialColor = self.signUpButton.backgroundColor
+                self.signUpButton.backgroundColor = UIColor.red
                 
+                UIView.animate(withDuration: 2, animations: {
+                    self.signUpButton.backgroundColor = initialColor
+                })
+                
+                let title = "Registration failed"
+                self.showAlertWithOK(with: title, message: nil, nil)
+
                 return
         }
         
@@ -123,14 +130,23 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                 switch response.result {
                 case .success:
                     self.hideProgressHud()
+                    
+                    self.signUpButton.backgroundColor = UIColor.green
+                    
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
                     self.hideProgressHud()
                     
-                    let title = "Invalid login data"
-                    let message = "Please provide email, nickname, password and password confirmation."
-                    self.showAlertWithOK(with: title, message: message, nil)
+                    let initialColor = self.signUpButton.backgroundColor
+                    self.signUpButton.backgroundColor = UIColor.red
+                    
+                    UIView.animate(withDuration: 2, animations: {
+                        self.signUpButton.backgroundColor = initialColor
+                    })
+                    
+                    let title = "Registration failed"
+                    self.showAlertWithOK(with: title, message: nil, nil)
                     
                     self.emailTextField.text = ""
                     self.nicknameTextField.text = ""
