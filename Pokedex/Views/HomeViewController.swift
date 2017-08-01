@@ -21,9 +21,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
-    // For animations
     private var rc = UIRefreshControl()
     private var customRefreshView = UIImageView()
+    
+    private var cellSize = CGSize()
+    private var settingsAreShown = false
+    @IBOutlet weak var settingsView: UIView!
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     
     private var user: UserModel?
     private var pokemons: [PokemonModel] = []
@@ -34,6 +38,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        cellSize = CGSize(width: view.bounds.width, height: view.bounds.height/6)
         fetchListOfPokemons()
         navigationBarSetup()
         refreshControlSetup()
@@ -57,7 +62,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         
-        animateCollectionView()
+        customRefreshView.frame.size.width = size.width
+        cellSize = CGSize(width: size.width, height: size.height/6)
+        collectionView.performBatchUpdates(({ collectionView.reloadData() ; animateCollectionView() }), completion: nil)
     }
     
     deinit {
@@ -83,21 +90,20 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     @objc func startRefresh() {
+        
+        collectionView.reloadData()
         animateCollectionView()
         
         customRefreshView.frame.size.height = 60
-        
         let rotation = CABasicAnimation(keyPath: "transform.rotation.z")
         rotation.toValue = Double.pi * 2
         rotation.duration = 1
         rotation.speed = 10
         rotation.isCumulative = true
         rotation.repeatCount = .greatestFiniteMagnitude
-        
         customRefreshView.layer.add(rotation, forKey: "spin")
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            
             self.customRefreshView.layer.removeAnimation(forKey: "spin")
             
             UIView.animate(
@@ -106,7 +112,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 completion: { (success) in
                     if success { self.rc.endRefreshing() }
             })
-            
         }
         
     }
@@ -116,9 +121,17 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
         navigationItem.leftBarButtonItem = leftButton
         
-        let imageRight = UIImage(named: "ic-plus")
-        let rightButton = UIBarButtonItem(image: imageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
-        navigationItem.rightBarButtonItem = rightButton
+        var rightButtons: [UIBarButtonItem] = []
+        
+        let secondImageRight = UIImage(named: "ic-plus")
+        let secondRightButton = UIBarButtonItem(image: secondImageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
+        rightButtons.append(secondRightButton)
+        
+        let firstImageRight = UIImage(named: "ic-settings")
+        let firstRightButton = UIBarButtonItem(image: firstImageRight, style: .done, target: self, action: #selector(HomeViewController.settings))
+        rightButtons.append(firstRightButton)
+        
+        navigationItem.rightBarButtonItems = rightButtons
     }
     
     func notifyOfNewPokemon() {
@@ -134,6 +147,75 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     self?.collectionView.reloadData()
                 }
         )
+    }
+    
+    // MARK: - Layout switching -
+    @objc func settings() {
+        
+        if settingsAreShown {
+            UIView.animate(withDuration: 2, animations: ({ self.collectionViewTopConstraint.constant = 0 }))
+            
+            settingsView.isHidden = true
+            settingsAreShown = false
+            
+        } else {
+            UIView.animate(withDuration: 2, animations: ({ self.collectionViewTopConstraint.constant = self.settingsView.frame.height }))
+            
+            settingsView.isHidden = false
+            settingsAreShown = true
+        }
+        
+    }
+    
+    @IBAction func listGridSwitchTouched(_ sender: Any) {
+        
+        let sender = sender as! UISegmentedControl
+        let height = self.view.bounds.height/8
+        
+        switch sender.selectedSegmentIndex {
+        case 0:
+            let width = self.view.bounds.width
+            cellSize = CGSize.init(width: width, height: height)
+            
+        case 1:
+            let width = (self.view.bounds.width/2) - 1
+            cellSize = CGSize.init(width: width, height: height)
+            
+        default:
+            print("switch error")
+        }
+        
+        animateCollectionView()
+        collectionView.reloadData()
+    }
+    
+    @IBAction func nameDateSortingSwitchTouched(_ sender: Any) {
+        
+        let sender = sender as! UISegmentedControl
+        
+        switch sender.selectedSegmentIndex {
+        case 0:
+            pokemons = pokemons.sorted(by: { (first, second) -> Bool in
+                let firstName = first.attributes.name
+                let secondName = second.attributes.name
+                
+                return firstName < secondName
+            })
+            
+        case 1:
+            pokemons = pokemons.sorted(by: { (first, second) -> Bool in
+                let firstDate = Date.parsePokemonDate(first.attributes.createdAt)
+                let secondDate = Date.parsePokemonDate(second.attributes.createdAt)
+                
+                return firstDate > secondDate
+            })
+            
+        default:
+            print("switch error")
+        }
+        
+        animateCollectionView()
+        collectionView.reloadData()
     }
     
     // MARK: - Collection view setup -
@@ -152,11 +234,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let cellWidth = collectionView.frame.width
-        let cellHeight = collectionView.frame.height / 6
-        
-        return CGSize.init(width: cellWidth, height: cellHeight)
+        return cellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -226,6 +304,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 switch response.result {
                 case .success:
                     self.pokemons = response.value!
+                    self.collectionView.reloadData()
                     self.animateCollectionView()
                     
                 case .failure:
