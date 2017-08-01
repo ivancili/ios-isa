@@ -12,12 +12,12 @@ import Alamofire
 import CodableAlamofire
 import Kingfisher
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, Alertable, Progressable {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, Alertable {
     
-    @IBOutlet weak var tableView: UITableView! {
+    @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
-            tableView.delegate = self
-            tableView.dataSource = self
+            collectionView.delegate = self
+            collectionView.dataSource = self
         }
     }
     
@@ -38,9 +38,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navigationBarSetup()
         refreshControlSetup()
         notifyOfNewPokemon()
-        
-        // Table row height
-        tableView.rowHeight = view.frame.size.height / 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -57,33 +54,23 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         pokemonFetchRequest?.cancel()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        
+        animateCollectionView()
+    }
+    
     deinit {
         NotificationCenter.default.removeObserver(notificationTokenFromPokemonUpload!)
         ImageCache.default.clearDiskCache()
         ImageCache.default.clearMemoryCache()
     }
     
-    // MARK: - New pokemon uploaded -
-    func notifyOfNewPokemon() {
-        notificationTokenFromPokemonUpload = NotificationCenter
-            .default
-            .addObserver(
-                forName: NotificationPokemonDidUpload,
-                object: nil,
-                queue: nil,
-                using: { [weak self] notification in
-                    guard let newPokemon = notification.userInfo?[NotificationPokemonValue] as? PokemonModel else { return }
-                    self?.pokemons.append(newPokemon)
-                    self?.tableView.reloadData()
-                }
-        )
-    }
-    
-    // MARK: - UIRefresh setup -
+    // MARK: - Setup methods -
     func refreshControlSetup() {
-        tableView.refreshControl = rc
+        collectionView.refreshControl = rc
         
-        rc.addTarget(self, action: #selector(HomeViewController.startTableRefresh), for: UIControlEvents.valueChanged)
+        rc.addTarget(self, action: #selector(HomeViewController.startRefresh), for: UIControlEvents.valueChanged)
         rc.backgroundColor = UIColor.oceanBlue().withAlphaComponent(1.0)
         rc.tintColor = UIColor.clear
         rc.addSubview(customRefreshView)
@@ -95,9 +82,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         customRefreshView.image = UIImage.init(named: "pokeball")
     }
     
-    @objc func startTableRefresh() {
-        
-        tableView.reloadData()
+    @objc func startRefresh() {
+        animateCollectionView()
         
         customRefreshView.frame.size.height = 60
         
@@ -125,7 +111,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
     }
     
-    // MARK: - Nav bar setup -
     func navigationBarSetup() {
         let imageLeft = UIImage(named: "ic-logout")
         let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
@@ -136,13 +121,29 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navigationItem.rightBarButtonItem = rightButton
     }
     
-    // MARK: - Table setup -
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func notifyOfNewPokemon() {
+        notificationTokenFromPokemonUpload = NotificationCenter
+            .default
+            .addObserver(
+                forName: NotificationPokemonDidUpload,
+                object: nil,
+                queue: nil,
+                using: { [weak self] notification in
+                    guard let newPokemon = notification.userInfo?[NotificationPokemonValue] as? PokemonModel else { return }
+                    self?.pokemons.append(newPokemon)
+                    self?.collectionView.reloadData()
+                }
+        )
+    }
+    
+    // MARK: - Collection view setup -
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pokemons.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PokemonTableViewCell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell", for: indexPath) as! PokemonTableViewCell
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PokemonCollectionViewCell", for: indexPath) as! PokemonCollectionViewCell
         
         let pokemon = pokemons[indexPath.row]
         cell.configureCell(with: pokemon)
@@ -150,41 +151,56 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let cellWidth = collectionView.frame.width
+        let cellHeight = collectionView.frame.height / 6
+        
+        return CGSize.init(width: cellWidth, height: cellHeight)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let user = user else { return }
+        
         PokemonDetailsViewController.switchToDetailsScreen(navigationController, user, pokemons[indexPath.row])
     }
     
+    
+    
     // MARK: - Animations -
-    func animateTable() {
+    func animateCollectionView() {
+        collectionView.reloadData()
         
-        tableView.reloadData()
-        let cells = tableView.visibleCells
-        
-        for cell in cells {
-            cell.transform = CGAffineTransform.init(translationX: 0, y: tableView.bounds.size.height)
-        }
-        
-        var counter = 0
-        for cell in cells {
+        let updates: (()->(Void))? = { [weak self] in
             
-            let animation = {
-                cell.transform = CGAffineTransform.identity
+            let cells = self?.collectionView.visibleCells
+            
+            for cell in cells! {
+                cell.transform = CGAffineTransform.init(translationX: 0, y: (self?.view.bounds.height)!)
             }
             
-            UIView.animate(
-                withDuration: 2,
-                delay: Double(counter)*0.05,
-                usingSpringWithDamping: 0.6,
-                initialSpringVelocity: 0,
-                options: .curveEaseOut,
-                animations: animation,
-                completion: nil
-            )
-            
-            counter += 1
+            var counter = 0
+            for cell in cells! {
+                
+                let animation = {
+                    cell.transform = CGAffineTransform.identity
+                }
+                
+                UIView.animate(
+                    withDuration: 2,
+                    delay: Double(counter)*0.05,
+                    usingSpringWithDamping: 0.6,
+                    initialSpringVelocity: 0,
+                    options: .curveEaseOut,
+                    animations: animation,
+                    completion: nil
+                )
+                
+                counter += 1
+            }
         }
         
+        collectionView.performBatchUpdates(updates, completion: nil)
     }
     
     // MARK: - API requests -
@@ -210,7 +226,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 switch response.result {
                 case .success:
                     self.pokemons = response.value!
-                    self.animateTable()
+                    self.animateCollectionView()
                     
                 case .failure:
                     
