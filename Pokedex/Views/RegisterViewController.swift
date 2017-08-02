@@ -17,7 +17,7 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signUpButtonBottomConstraint: NSLayoutConstraint!
     
     private weak var notificationTokenKeyboardWillShow: NSObjectProtocol?
@@ -26,20 +26,35 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.hideKeyboardWhenTappedAround()
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.isHidden = false
+        
+        UIApplication.shared.statusBarStyle = .lightContent
+        navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        keyboardHandlingSetup()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        UIApplication.shared.statusBarStyle = .default
+        signupRequest?.cancel()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
+        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
+    }
+    
+    // MARK: - Keyboard handling setup -
+    func keyboardHandlingSetup() {
         
         notificationTokenKeyboardWillShow = NotificationCenter
             .default
@@ -60,15 +75,6 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        signupRequest?.cancel()
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillShow!)
-        NotificationCenter.default.removeObserver(notificationTokenKeyboardWillHide!)
-    }
     
     // MARK: - Sign up API call -
     @IBAction func signupButtonTouched(_ sender: Any) {
@@ -84,14 +90,14 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
             !nickname.isEmpty,
             !password.isEmpty,
             !passwordConfirmation.isEmpty
-            else {
-                hideProgressHud()
-                
-                let title = "Error during registration"
-                let message = "Please provide email, nickname, password and password confirmation."
-                showAlertWithOK(with: title, message: message, nil)
-                
-                return
+        else {
+            hideProgressHud()
+            animateSignUpButtonWithColor(UIColor.red)
+            
+            let title = "Registration failed"
+            self.showAlertWithOK(with: title, message: nil, nil)
+            
+            return
         }
         
         
@@ -118,14 +124,16 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                 switch response.result {
                 case .success:
                     self.hideProgressHud()
+                    self.animateSignUpButtonWithColor(UIColor.green)
+                    
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
                     self.hideProgressHud()
+                    self.animateSignUpButtonWithColor(UIColor.red)
                     
-                    let title = "Invalid login data"
-                    let message = "Please provide email, nickname, password and password confirmation."
-                    self.showAlertWithOK(with: title, message: message, nil)
+                    let title = "Registration failed"
+                    self.showAlertWithOK(with: title, message: nil, nil)
                     
                     self.emailTextField.text = ""
                     self.nicknameTextField.text = ""
@@ -137,6 +145,18 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         }
         
         
+    }
+    
+    // MARK: - Animations -
+    func animateSignUpButtonWithColor(_ color: UIColor) {
+
+        let initialColor = self.signUpButton.backgroundColor
+        self.signUpButton.backgroundColor = color
+        
+        UIView.animate(withDuration: 1, animations: {
+            self.signUpButton.backgroundColor = initialColor
+        })
+
     }
     
 }
