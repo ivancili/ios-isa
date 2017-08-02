@@ -90,20 +90,14 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
             !nickname.isEmpty,
             !password.isEmpty,
             !passwordConfirmation.isEmpty
-            else {
-                hideProgressHud()
-                
-                let initialColor = self.signUpButton.backgroundColor
-                self.signUpButton.backgroundColor = UIColor.red
-                
-                UIView.animate(withDuration: 2, animations: {
-                    self.signUpButton.backgroundColor = initialColor
-                })
-                
-                let title = "Registration failed"
-                self.showAlertWithOK(with: title, message: nil, nil)
-
-                return
+        else {
+            hideProgressHud()
+            animateSignUpButtonWithColor(UIColor.red)
+            
+            let title = "Registration failed"
+            self.showAlertWithOK(with: title, message: nil, nil)
+            
+            return
         }
         
         
@@ -130,20 +124,13 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
                 switch response.result {
                 case .success:
                     self.hideProgressHud()
-                    
-                    self.signUpButton.backgroundColor = UIColor.green
+                    self.animateSignUpButtonWithColor(UIColor.green)
                     
                     HomeViewController.switchToHomeScreen(self.navigationController, dataToInject: response.value!)
                     
                 case .failure:
                     self.hideProgressHud()
-                    
-                    let initialColor = self.signUpButton.backgroundColor
-                    self.signUpButton.backgroundColor = UIColor.red
-                    
-                    UIView.animate(withDuration: 2, animations: {
-                        self.signUpButton.backgroundColor = initialColor
-                    })
+                    self.animateSignUpButtonWithColor(UIColor.red)
                     
                     let title = "Registration failed"
                     self.showAlertWithOK(with: title, message: nil, nil)
@@ -158,6 +145,18 @@ class RegisterViewController: UIViewController, Alertable, Progressable {
         }
         
         
+    }
+    
+    // MARK: - Animations -
+    func animateSignUpButtonWithColor(_ color: UIColor) {
+
+        let initialColor = self.signUpButton.backgroundColor
+        self.signUpButton.backgroundColor = color
+        
+        UIView.animate(withDuration: 1, animations: {
+            self.signUpButton.backgroundColor = initialColor
+        })
+
     }
     
 }
