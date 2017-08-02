@@ -20,6 +20,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     private var comments: [CommentModel] = []
     private var users: [UserDataModel] = []
     
+    // Info view setup
     private var infoViewShown = false
     @IBOutlet weak var infoView: UIView!
     @IBOutlet weak var createdOnLabel: UILabel!
@@ -27,6 +28,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     @IBOutlet weak var imageURLLabel: UILabel!
     @IBOutlet weak var visualEffectView: UIVisualEffectView!
     
+    // Like/dislike setup
     private var clickedLikeOrDislike = false
     @IBOutlet weak var likeView: UIView!
     @IBOutlet weak var likeLabel: UILabel!
@@ -76,7 +78,6 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
         
         UIApplication.shared.statusBarStyle = .lightContent
-        // Screen title
         title = pokemon?.attributes.name.capitalized
     }
     
@@ -125,35 +126,33 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
     func setupNavigationBar() {
         
         // left button
-        let imageLeft = UIImage(named: "ic-back")
-        let leftButtonSelector: Selector? = #selector(PokemonDetailsViewController.goToHomeScreen)
-        let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: leftButtonSelector)
+        let backButtonImage = UIImage(named: "ic-back")
+        let backButtonSelector: Selector? = #selector(PokemonDetailsViewController.goToHomeScreen)
+        let backButton = UIBarButtonItem(image: backButtonImage, style: .done, target: self, action: backButtonSelector)
         
-        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.leftBarButtonItem = backButton
         
         // right buttons
         var rightButtons: [UIBarButtonItem] = []
         
-        let firstImageRight = UIImage(named: "ic-edit")
-        rightButtons.append(UIBarButtonItem(image: firstImageRight, style: .done, target: self, action: nil))
+        let editButtonImage = UIImage(named: "ic-edit")
+        rightButtons.append(UIBarButtonItem(image: editButtonImage, style: .done, target: self, action: nil))
         
-        let secondImageRight = UIImage(named: "ic-info")
-        let ightButtonSelector: Selector? = #selector(PokemonDetailsViewController.infoButtonTouched)
-        rightButtons.append(
-            UIBarButtonItem(image: secondImageRight, style: .done, target: self, action: ightButtonSelector))
+        let infoButtonImage = UIImage(named: "ic-info")
+        let infoButtonSelector: Selector? = #selector(PokemonDetailsViewController.infoButtonTouched)
+        rightButtons.append(UIBarButtonItem(image: infoButtonImage, style: .done, target: self, action: infoButtonSelector))
         
         navigationItem.rightBarButtonItems = rightButtons
     }
     
     func fillTheDetailsTemplate() {
-        
-        guard let pokemon = pokemon else {
-            return
-        }
-        
         pokemonImage.image = nil
+        
+        guard let pokemon = pokemon else { return }
+        
         if let imageURL = pokemon.attributes.imageURL {
             if let resource = URL.init(string: "https://pokeapi.infinum.co/" + imageURL) {
+                
                 pokemonImage.kf.setImage(
                     with: resource,
                     placeholder: UIImage.init(named: "ic-person"),
@@ -161,6 +160,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
                     progressBlock: nil,
                     completionHandler: nil
                 )
+                
             }
         }
         
@@ -189,7 +189,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
             let token = user?.authToken,
             let email = user?.email,
             let pokemonID = pokemon?.id
-            else { return }
+        else { return }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\(token), email=\(email)",
@@ -289,7 +289,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
             let token = user?.authToken,
             let email = user?.email,
             let pokemonID = pokemon?.id
-            else { return }
+        else { return }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\(token), email=\(email)",
@@ -329,7 +329,7 @@ class PokemonDetailsViewController: UIViewController, UITableViewDelegate, UITab
             let comment = newCommentTextField.text,
             let pokemonID = pokemon?.id,
             !comment.isEmpty
-            else { return }
+        else { return }
         
         let headers: HTTPHeaders = [
             "Authorization": "Token token=\(token), email=\(email)",
