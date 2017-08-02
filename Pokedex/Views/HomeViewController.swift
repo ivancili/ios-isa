@@ -21,19 +21,22 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }
     }
     
+    // Refresh control
     private var rc = UIRefreshControl()
     private var customRefreshView = UIImageView()
+    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     
-    private var cellSize = CGSize()
+    // Settings view
     private var settingsAreShown = false
     @IBOutlet weak var settingsView: UIView!
-    @IBOutlet weak var collectionViewTopConstraint: NSLayoutConstraint!
     
     private var user: UserModel?
     private var pokemons: [PokemonModel] = []
     
-    private var notificationTokenFromPokemonUpload: NSObjectProtocol?
+    private var cellSize = CGSize()
     private var pokemonFetchRequest: DataRequest?
+    private var notificationTokenFromPokemonUpload: NSObjectProtocol?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,7 +67,11 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         
         customRefreshView.frame.size.width = size.width
         cellSize = CGSize(width: size.width, height: size.height/6)
-        collectionView.performBatchUpdates(({ collectionView.reloadData() ; animateCollectionView() }), completion: nil)
+        
+        collectionView.performBatchUpdates(({
+            collectionView.reloadData()
+            animateCollectionView()
+        }), completion: nil)
     }
     
     deinit {
@@ -112,29 +119,32 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 completion: { (success) in
                     if success { self.rc.endRefreshing() }
             })
+            
         }
         
     }
     
     func navigationBarSetup() {
-        let imageLeft = UIImage(named: "ic-logout")
-        let leftButton = UIBarButtonItem(image: imageLeft, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
-        navigationItem.leftBarButtonItem = leftButton
+        
+        let logoutButtonImage = UIImage(named: "ic-logout")
+        let logoutButton = UIBarButtonItem(image: logoutButtonImage, style: .done, target: self, action: #selector(HomeViewController.logoutUser))
+        navigationItem.leftBarButtonItem = logoutButton
         
         var rightButtons: [UIBarButtonItem] = []
         
-        let secondImageRight = UIImage(named: "ic-plus")
-        let secondRightButton = UIBarButtonItem(image: secondImageRight, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
-        rightButtons.append(secondRightButton)
+        let plusButtonImage = UIImage(named: "ic-plus")
+        let plusButton = UIBarButtonItem(image: plusButtonImage, style: .done, target: self, action: #selector(HomeViewController.goToNewPokemonScreen))
+        rightButtons.append(plusButton)
         
-        let firstImageRight = UIImage(named: "ic-settings")
-        let firstRightButton = UIBarButtonItem(image: firstImageRight, style: .done, target: self, action: #selector(HomeViewController.settings))
-        rightButtons.append(firstRightButton)
+        let settingsButtonImage = UIImage(named: "ic-settings")
+        let settingsButton = UIBarButtonItem(image: settingsButtonImage, style: .done, target: self, action: #selector(HomeViewController.settings))
+        rightButtons.append(settingsButton)
         
         navigationItem.rightBarButtonItems = rightButtons
     }
     
     func notifyOfNewPokemon() {
+        
         notificationTokenFromPokemonUpload = NotificationCenter
             .default
             .addObserver(
@@ -147,6 +157,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     self?.collectionView.reloadData()
                 }
         )
+        
     }
     
     // MARK: - Layout switching -
@@ -243,8 +254,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         PokemonDetailsViewController.switchToDetailsScreen(navigationController, user, pokemons[indexPath.row])
     }
     
-    
-    
     // MARK: - Animations -
     func animateCollectionView() {
         collectionView.reloadData()
@@ -276,6 +285,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 
                 counter += 1
             }
+            
         }
         
         collectionView.performBatchUpdates(updates, completion: nil)
