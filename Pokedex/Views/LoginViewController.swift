@@ -34,8 +34,7 @@ class LoginViewController: UIViewController, Progressable {
         super.viewWillAppear(animated)
         
         navigationController?.setNavigationBarHidden(true, animated: true)
-        emailTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.email.rawValue) as? String ?? ""
-        passwordTextField.text = UserDefaults.standard.value(forKey: UserDefaultsModel.password.rawValue) as? String ?? ""
+        (emailTextField.text, passwordTextField.text) = readUserDefaults()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -171,15 +170,14 @@ class LoginViewController: UIViewController, Progressable {
         
         guard
             let email = emailTextField.text, let password = passwordTextField.text, !email.isEmpty, !password.isEmpty
-            else {
-                
-                stopSpinningPokeball()
-                loginFailAnimation()
-                
-                emailTextField.text = ""
-                passwordTextField.text = ""
-                
-                return
+        else {
+            stopSpinningPokeball()
+            loginFailAnimation()
+            
+            emailTextField.text = ""
+            passwordTextField.text = ""
+            
+            return
         }
         
         let params = [
@@ -204,9 +202,7 @@ class LoginViewController: UIViewController, Progressable {
                 case .success:
                     self.stopSpinningPokeball()
                     self.loginSuccessAnimation()
-                    
-                    UserDefaults.standard.set(email, forKey: UserDefaultsModel.email.rawValue)
-                    UserDefaults.standard.set(password, forKey: UserDefaultsModel.password.rawValue)
+                    self.setUserDefaults(email: email, password: password)
                     
                     let when = DispatchTime.now() + 1
                     DispatchQueue.main.asyncAfter(deadline: when, execute: {
@@ -226,6 +222,19 @@ class LoginViewController: UIViewController, Progressable {
         
     }
     
+    // MARK: - UserDefaults handling -
+    private func setUserDefaults(email userEmail: String, password userPassword: String) {
+        UserDefaults.standard.set(userEmail, forKey: UserDefaultsModel.email.rawValue)
+        UserDefaults.standard.set(userPassword, forKey: UserDefaultsModel.password.rawValue)
+    }
+    
+    private func readUserDefaults() -> (String?, String?) {
+        let email = UserDefaults.standard.value(forKey: UserDefaultsModel.email.rawValue) as? String
+        let password = UserDefaults.standard.value(forKey: UserDefaultsModel.password.rawValue) as? String
+        
+        return (email, password)
+    }
+    
     // MARK: - Password entry visibility -
     @IBAction func passwordVisibilityActive(_ sender: Any) {
         passwordTextField.isSecureTextEntry = true
@@ -240,9 +249,7 @@ class LoginViewController: UIViewController, Progressable {
         
         let bundle = Bundle.main
         let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-        let registerViewController = storyboard.instantiateViewController(
-            withIdentifier: "RegisterViewController"
-        )
+        let registerViewController = storyboard.instantiateViewController(withIdentifier: "RegisterViewController")
         
         navigationController?.pushViewController(registerViewController, animated: true)
         
